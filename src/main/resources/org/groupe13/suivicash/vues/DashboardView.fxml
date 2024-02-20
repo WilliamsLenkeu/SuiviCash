@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" prefHeight="1010.0" prefWidth="806.0" spacing="10" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.groupe13.suivicash.DashboardController">
+
+    <BarChart fx:id="depensesBarChart" prefHeight="300" prefWidth="400">
+        <xAxis>
+            <CategoryAxis />
+        </xAxis>
+        <yAxis>
+            <NumberAxis />
+        </yAxis>
+    </BarChart>
+
+    <BarChart fx:id="revenusBarChart" prefHeight="300" prefWidth="400">
+        <xAxis>
+            <CategoryAxis />
+        </xAxis>
+        <yAxis>
+            <NumberAxis />
+        </yAxis>
+    </BarChart>
+
+    <ListView fx:id="banqueListView" prefHeight="200.0" prefWidth="200.0" />
+
+    <Label style="-fx-font-size: 14px;" text="Total des soldes des banques: " />
+    <Label fx:id="totalSoldeLabel" style="-fx-font-size: 14px;" />
+
+    <!--<Label style="-fx-font-size: 14px;" text="Total des dépenses effectuées: " />
+    <Label fx:id="totalDepensesLabel" style="-fx-font-size: 14px;" />
+
+    <Label style="-fx-font-size: 14px;" text="Total des revenus gagnés: " />
+    <Label fx:id="totalRevenusLabel" style="-fx-font-size: 14px;" />-->
+
+    <Button fx:id="ajouterBanqueButton" onAction="#handleAjouterBanqueClick" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px;" text="Ajouter une Banque" />
+</VBox>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.groupe13.suivicash.HomeController">
+    <children>
+        <!-- En-tête -->
+        <AnchorPane prefHeight="92.0" prefWidth="900.0">
+            <padding>
+                <Insets left="10.0" right="10.0" />
+            </padding>
+            <children>
+                <Text layoutX="91.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SuiviCash" wrappingWidth="204.54442596435547">
+                    <font>
+                        <Font name="Arial" size="36.0" />
+                    </font>
+                </Text>
+                <Text layoutX="91.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Le suivi des dépenses n'a jamais été aussi facile" wrappingWidth="305.68048095703125" />
+            </children>
+        </AnchorPane>
+        <!-- Contenu principal -->
+        <SplitPane dividerPositions="0.5" focusTraversable="true" prefHeight="505.0" prefWidth="900.0" VBox.vgrow="ALWAYS">
+            <items>
+                <!-- Zone gauche -->
+                <AnchorPane maxWidth="-Infinity" prefHeight="550.0" prefWidth="86.0">
+                    <children>
+                        <VBox alignment="TOP_CENTER" prefHeight="520.0" prefWidth="86.0" spacing="10.0">
+                            <children>
+                                <Button fx:id="DepenseButton" mnemonicParsing="false" onAction="#handleDepenseButtonClick" prefWidth="120.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 12px; -fx-padding: 10px 10px;" text="Dépenses" />
+                                <Button fx:id="RevenuButton" mnemonicParsing="false" onAction="#handleRevenuButtonClick" prefWidth="120.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 12; -fx-padding: 10px 10px;" text="Revenus" />
+                                <Button fx:id="BanqueButton" mnemonicParsing="false" onAction="#handleDashboardButtonClick" prefWidth="120.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 12px; -fx-padding: 10px 10px;" text="Banques" />
+                            </children>
+                            <padding>
+                                <Insets top="10.0" />
+                            </padding>
+                        </VBox>
+                    </children>
+                </AnchorPane>
+                <!-- Zone droite (potentiellement une zone de défilement) -->
+                <ScrollPane fx:id="contentScrollPane" prefHeight="518.0" prefWidth="806.0">
+                    <content>
+                        <fx:include fx:id="view" source="vues/DashboardView.fxml" />
+                    </content>
+                </ScrollPane>
+            </items>
+        </SplitPane>
+        <!-- Barre d'état -->
+        <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
+            <children>
+                <Label text="État gauche" HBox.hgrow="ALWAYS">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                    <textFill>
+                        <Color red="0.39" green="0.39" blue="0.39" fx:id="x3" />
+                    </textFill>
+                </Label>
+                <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
+                <Label text="État droit" HBox.hgrow="NEVER">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                    <textFill>
+                        <Color red="0.39" green="0.39" blue="0.39" fx:id="x4" />
+                    </textFill>
+                </Label>
+            </children>
+            <padding>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+            </padding>
+        </HBox>
+    </children>
+</VBox>
