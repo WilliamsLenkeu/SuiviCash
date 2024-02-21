@@ -10,49 +10,55 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" prefHeight="518.0" prefWidth="756.0" spacing="10" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="org.groupe13.suivicash.DashboardController">
-   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
-      <children>
-      
-          <BarChart fx:id="depensesBarChart" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="150.0" prefWidth="343.0">
-              <xAxis>
-                  <CategoryAxis />
-              </xAxis>
-              <yAxis>
-                  <NumberAxis />
-              </yAxis>
-          </BarChart>
-      
-          <BarChart fx:id="revenusBarChart" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="150.0" prefWidth="371.0">
-              <xAxis>
-                  <CategoryAxis />
-              </xAxis>
-              <yAxis>
-                  <NumberAxis />
-              </yAxis>
-          </BarChart>
-      </children>
-      <padding>
-         <Insets left="10.0" right="10.0" />
-      </padding>
-   </HBox>
-   <HBox alignment="CENTER_RIGHT" prefHeight="42.0" prefWidth="729.0">
-      <children>
-      
-                <!--<Label style="-fx-font-size: 14px;" text="Total des dépenses effectuées: " />
-          <Label fx:id="totalDepensesLabel" style="-fx-font-size: 14px;" />
-            
-                <Label style="-fx-font-size: 14px;" text="Total des revenus gagnés: " />
-                <Label fx:id="totalRevenusLabel" style="-fx-font-size: 14px;" />-->
-      
-                <Button fx:id="ajouterBanqueButton" onAction="#handleAjouterBanqueClick" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px;" text="Ajouter une Banque" />
-      </children>
-      <padding>
-         <Insets right="10.0" />
-      </padding>
-   </HBox>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 
-    <ListView fx:id="banqueListView" prefHeight="200.0" prefWidth="200.0" />
+<VBox alignment="CENTER" prefHeight="518.0" prefWidth="756.0" spacing="10" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="org.groupe13.suivicash.DashboardController">
+    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+        <children>
+
+            <BarChart fx:id="depensesBarChart" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="150.0" prefWidth="343.0">
+                <xAxis>
+                    <CategoryAxis />
+                </xAxis>
+                <yAxis>
+                    <NumberAxis />
+                </yAxis>
+            </BarChart>
+
+            <BarChart fx:id="revenusBarChart" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="150.0" prefWidth="371.0">
+                <xAxis>
+                    <CategoryAxis />
+                </xAxis>
+                <yAxis>
+                    <NumberAxis />
+                </yAxis>
+            </BarChart>
+        </children>
+        <padding>
+            <Insets left="10.0" right="10.0" />
+        </padding>
+    </HBox>
+    <HBox alignment="CENTER_RIGHT" prefHeight="42.0" prefWidth="729.0">
+        <children>
+            <Button fx:id="ajouterBanqueButton" onAction="#handleAjouterBanqueClick" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px;" text="Ajouter une Banque" />
+        </children>
+        <padding>
+            <Insets right="10.0" />
+        </padding>
+    </HBox>
+
+    <TableView fx:id="banqueTableView" prefHeight="200.0" prefWidth="200.0">
+        <columns>
+            <TableColumn text="Nom Banque" prefWidth="150">
+                <cellValueFactory><PropertyValueFactory property="nomBanque" /></cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Solde (XAF)" prefWidth="100">
+                <cellValueFactory><PropertyValueFactory property="solde" /></cellValueFactory>
+            </TableColumn>
+        </columns>
+    </TableView>
 
     <Label style="-fx-font-size: 14px;" text="Total des soldes des banques: " />
     <Label fx:id="totalSoldeLabel" style="-fx-font-size: 14px;" />
