@@ -26,26 +26,27 @@ public class AjouterCategorieController {
     private TextField nomCategorieTextField;
 
     public void handleAjouterClick(ActionEvent actionEvent) {
-        // Récupérer le texte du champ de texte
         String nomCategorie = nomCategorieTextField.getText();
 
-        // Traitez l'ajout de la catégorie avec le texte récupéré (nomCategorie)
-        // Appeler la méthode ajouterCategorie pour ajouter la catégorie
-        databaseConnection.ajouterCategorie(nomCategorie,0);
+        if (!nomCategorie.isEmpty()) {
+            boolean ajoutReussi = databaseConnection.ajouterCategorie(nomCategorie, 0);
 
-
-        // Affichez une boîte de dialogue d'information
-        afficherBoiteDialogueInformation("Catégorie ajoutée", "Nom de la catégorie : " + nomCategorie);
-
+            if (ajoutReussi) {
+                afficherBoiteDialogue(Alert.AlertType.INFORMATION, "Catégorie ajoutée", "Nom de la catégorie : " + nomCategorie);
+            } else {
+                afficherBoiteDialogue(Alert.AlertType.ERROR, "Erreur", "Erreur lors de l'ajout de la catégorie, cette categorie existe deja .");
+            }
+        } else {
+            afficherBoiteDialogue(Alert.AlertType.WARNING, "Avertissement", "Veuillez entrer un nom de catégorie.");
+        }
     }
 
-    private void  afficherBoiteDialogueInformation(String titre, String contenu) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+    private void afficherBoiteDialogue(Alert.AlertType type, String titre, String contenu) {
+        Alert alert = new Alert(type);
         alert.setTitle(titre);
         alert.setHeaderText(null);
         alert.setContentText(contenu);
         alert.showAndWait();
-
     }
 
     @FXML
