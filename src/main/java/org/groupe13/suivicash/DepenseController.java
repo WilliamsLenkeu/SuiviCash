@@ -5,6 +5,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.groupe13.suivicash.modele.Depense;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -25,13 +29,31 @@ import static org.groupe13.suivicash.modele.connectionFile.*;
 
 public class DepenseController {
     public ListView CategorieListView;
+    public BorderPane Categorie;
+    public Button AjouterCategorieButton;
 
-
+    public  void RendreVisibile(int i){
+        if(i==0){
+            CategorieListView.setVisible(true);
+            CategorieListView.setManaged(true);
+            AjouterCategorieButton.setVisible(true);
+            AjouterCategorieButton.setManaged(true);
+            Categorie.setVisible(false);
+            Categorie.setManaged(false);
+        }else{
+            CategorieListView.setVisible(false);
+            CategorieListView.setManaged(false);
+            AjouterCategorieButton.setVisible(false);
+            AjouterCategorieButton.setManaged(false);
+            Categorie.setVisible(true);
+            Categorie.setManaged(true);
+        }
+    }
     @FXML
     private void initialize() {
         // Récupérer la liste des catégories
         List<String> categories = recuperation();
-
+        RendreVisibile(0);
         // Ajouter les catégories à la ListView en tant que boutons cliquables
         for (String category : categories) {
             Button categoryButton = new Button(category);
@@ -40,42 +62,29 @@ public class DepenseController {
         }
     }
 
-    private ListDepenseController listDepenseController;
+    private void chargerNouveauContenuAvecInfos(String nom) {
+        try {
+            // Charger le fichier FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("vues/ListDepense.fxml"));
+            AnchorPane newContent = loader.load();
+            Depense depense= new Depense();
 
-    // ...
+            // Accéder au contrôleur du nouveau contenu
+            ListDepenseController nouveauContenuController= new ListDepenseController(depense.getDepensesByCategorie(nom));
+            nouveauContenuController  = loader.getController();
 
-    public void handleCategorieSelection(ActionEvent event) {
-        // Obtenez la catégorie sélectionnée, par exemple, à partir de la ListView
-        String categorieSelectionnee = CategorieListView.getSelectionModel().getSelectedItem().toString();
-
-        // Appelez la méthode pour afficher la liste des dépenses
-        listDepenseController.afficherListeDepenses(categorieSelectionnee);
+            // Remplacer le contenu actuel par le nouveau contenu
+            Categorie.setCenter(newContent);
+        } catch (Exception e) {
+            e.printStackTrace(); // Gérer les exceptions selon votre besoin
+        }
     }
 
+
     private void handleCategoryButtonClick(String categoryName) {
-        try {
-            // Charger le fichier FXML de la liste des dépenses
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("vues/ListDepense.fxml"));
-            Parent root = loader.load();
+        chargerNouveauContenuAvecInfos(categoryName);
+        RendreVisibile(1);
 
-            // Accéder au contrôleur de la liste des dépenses
-            ListDepenseController listeDepenseController = loader.getController();
-
-            // Passer la catégorie sélectionnée au contrôleur de la liste des dépenses
-            listeDepenseController.setCategorieSelectionnee(categoryName);
-
-            // Créer une nouvelle scène
-            Scene scene = new Scene(root);
-
-            // Accéder à la scène actuelle
-            Stage currentStage = (Stage) CategorieListView.getScene().getWindow();
-
-            // Changer la scène actuelle pour afficher la liste des dépenses
-            currentStage.setScene(scene);
-            currentStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
 

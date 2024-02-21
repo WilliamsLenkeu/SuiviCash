@@ -14,11 +14,25 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.fxml.FXMLLoader?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.TextArea?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="org.groupe13.suivicash.DepenseController">
     <children>
-        <Button fx:id="AjouterCategorieButton" text="Ajouter Catégorie" onAction="#handleAjouterCategorieClick" />
-        <ListView fx:id="CategorieListView" prefHeight="200.0" prefWidth="200.0" />
+        <Button fx:id="AjouterCategorieButton" text="Ajouter Catégorie" onAction="#handleAjouterCategorieClick" visible="false" managed="false" />
+        <ListView fx:id="CategorieListView" prefHeight="200.0" prefWidth="200.0" visible="false" managed="false"/>
+
+        <BorderPane fx:id="Categorie">
+            <!-- Autres éléments du BorderPane ici, tels que Top, Left, Right, Bottom -->
+
+            <center>
+                <!-- C'est l'emplacement où vous voulez charger le nouveau contenu -->
+                <AnchorPane fx:id="mainContent"/>
+
+            </center>
+        </BorderPane>
+
     </children>
 </VBox>
