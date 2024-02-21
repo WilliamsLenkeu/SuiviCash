@@ -11,6 +11,15 @@ public class ListDepenseController {
     @FXML
     private ListView<String> depensesListView;
 
+    private String categorieSelectionnee;
+
+    // Autres champs et méthodes de la classe...
+
+    public void setCategorieSelectionnee(String categorieSelectionnee) {
+        this.categorieSelectionnee = categorieSelectionnee;
+        // Appeler une méthode pour charger et afficher la liste des dépenses de cette catégorie
+
+    }
     // Méthode appelée lorsqu'on clique sur une catégorie dans DepenseController
     public void afficherListeDepenses(String categorie) {
         // Obtenez la liste des dépenses pour la catégorie spécifiée depuis votre modèle de données

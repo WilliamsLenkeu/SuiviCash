@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -52,10 +53,31 @@ public class DepenseController {
     }
 
     private void handleCategoryButtonClick(String categoryName) {
-        // Implémentez le code pour gérer le clic sur un bouton de catégorie
-        // Par exemple, vous pourriez afficher les dépenses de cette catégorie.
-        afficherBoiteDialogueInformation("Afficher les dépenses pour la catégorie : " , categoryName);
+        try {
+            // Charger le fichier FXML de la liste des dépenses
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("vues/ListDepense.fxml"));
+            Parent root = loader.load();
+
+            // Accéder au contrôleur de la liste des dépenses
+            ListDepenseController listeDepenseController = loader.getController();
+
+            // Passer la catégorie sélectionnée au contrôleur de la liste des dépenses
+            listeDepenseController.setCategorieSelectionnee(categoryName);
+
+            // Créer une nouvelle scène
+            Scene scene = new Scene(root);
+
+            // Accéder à la scène actuelle
+            Stage currentStage = (Stage) CategorieListView.getScene().getWindow();
+
+            // Changer la scène actuelle pour afficher la liste des dépenses
+            currentStage.setScene(scene);
+            currentStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
 
     private void  afficherBoiteDialogueInformation(String titre, String contenu) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
