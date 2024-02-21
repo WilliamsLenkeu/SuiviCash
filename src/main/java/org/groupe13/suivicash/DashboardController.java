@@ -13,7 +13,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Label;
 import javafx.stage.Modality;
-import org.groupe13.suivicash.modele.connectionFile;
+import org.groupe13.suivicash.modele.*;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
@@ -25,7 +25,7 @@ import java.sql.SQLException;
 public class DashboardController {
 
     @FXML
-    private ListView<DashboardController.Banque> banqueListView;
+    private ListView<Banque> banqueListView;
 
     @FXML
     private Label totalSoldeLabel;
@@ -168,29 +168,6 @@ public class DashboardController {
             revenusBarChart.getData().add(series);
         } catch (SQLException e) {
             e.printStackTrace();
-        }
-    }
-
-    public static class Banque {
-        private String nomBanque;
-        private double solde;
-
-        public Banque(String nomBanque, double solde) {
-            this.nomBanque = nomBanque;
-            this.solde = solde;
-        }
-
-        public String getNomBanque() {
-            return nomBanque;
-        }
-
-        public double getSolde() {
-            return solde;
-        }
-
-        @Override
-        public String toString() {
-            return nomBanque;
         }
     }
 }
