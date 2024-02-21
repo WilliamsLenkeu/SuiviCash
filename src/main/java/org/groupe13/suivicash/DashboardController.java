@@ -112,15 +112,16 @@ public class DashboardController {
 
     private void updateDepensesChart(int year) {
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT NomBanque, SUM(Montant) AS TotalDepenses FROM depenses JOIN banques ON depenses.IDBanque = banques.IDBanque WHERE YEAR(DateDepense) = ? GROUP BY NomBanque");
+            PreparedStatement statement = connection.prepareStatement("SELECT NomBanque, MONTHNAME(DateDepense) AS Mois, SUM(Montant) AS TotalDepenses FROM depenses JOIN banques ON depenses.IDBanque = banques.IDBanque WHERE YEAR(DateDepense) = ? GROUP BY NomBanque, Mois");
             statement.setInt(1, year);
             ResultSet resultSet = statement.executeQuery();
 
             XYChart.Series<String, Number> series = new XYChart.Series<>();
             while (resultSet.next()) {
                 String nomBanque = resultSet.getString("NomBanque");
+                String mois = resultSet.getString("Mois");
                 double totalDepenses = resultSet.getDouble("TotalDepenses");
-                series.getData().add(new XYChart.Data<>(nomBanque, totalDepenses));
+                series.getData().add(new XYChart.Data<>(nomBanque + " - " + mois, totalDepenses));
             }
 
             depensesBarChart.getData().clear();
@@ -132,15 +133,16 @@ public class DashboardController {
 
     private void updateRevenusChart(int year) {
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT NomBanque, SUM(Montant) AS TotalRevenus FROM revenus JOIN banques ON revenus.IDBanque = banques.IDBanque WHERE YEAR(DateRevenu) = ? GROUP BY NomBanque");
+            PreparedStatement statement = connection.prepareStatement("SELECT NomBanque, MONTHNAME(DateRevenu) AS Mois, SUM(Montant) AS TotalRevenus FROM revenus JOIN banques ON revenus.IDBanque = banques.IDBanque WHERE YEAR(DateRevenu) = ? GROUP BY NomBanque, Mois");
             statement.setInt(1, year);
             ResultSet resultSet = statement.executeQuery();
 
             XYChart.Series<String, Number> series = new XYChart.Series<>();
             while (resultSet.next()) {
                 String nomBanque = resultSet.getString("NomBanque");
+                String mois = resultSet.getString("Mois");
                 double totalRevenus = resultSet.getDouble("TotalRevenus");
-                series.getData().add(new XYChart.Data<>(nomBanque, totalRevenus));
+                series.getData().add(new XYChart.Data<>(nomBanque + " - " + mois, totalRevenus));
             }
 
             revenusBarChart.getData().clear();
