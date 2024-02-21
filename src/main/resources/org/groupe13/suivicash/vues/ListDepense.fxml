@@ -14,12 +14,13 @@
     <!-- Ajoutez cela à votre FXML -->
     <TableView fx:id="depenseTableView" layoutY="50">
         <columns>
-            <TableColumn text="ID" fx:id="idCol"/>
+
             <TableColumn text="Montant" fx:id="montantCol"/>
             <TableColumn text="Date" fx:id="dateCol"/>
             <TableColumn text="Description" fx:id="descriptionCol"/>
-            <TableColumn text="ID Banque" fx:id="idBanqueCol"/>
-            <TableColumn text="ID Catégorie" fx:id="idCategorieCol"/>
+            <TableColumn text="Banque" fx:id="idBanqueCol"/>
+
+            <TableColumn fx:id="deleteCol"  text="Supprimer" />
         </columns>
     </TableView>
 
