@@ -35,7 +35,7 @@ public class RevenuController {
     @FXML
     private TableColumn<Revenus, String> descriptionCol;
     @FXML
-    private TableColumn<Revenus, Integer> idBanqueCol;
+    private TableColumn<Revenus, String> nomBanqueCol;
 
     public void initialize() {
         // Initialiser les colonnes avec les propriétés de la classe Revenus
@@ -43,7 +43,7 @@ public class RevenuController {
         montantCol.setCellValueFactory(new PropertyValueFactory<>("montant")); // Modifier la propriété "Montant" en minuscules
         dateCol.setCellValueFactory(new PropertyValueFactory<>("DateRevenu"));
         descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description")); // Modifier la propriété "Description" en minuscules
-        idBanqueCol.setCellValueFactory(new PropertyValueFactory<>("idBanque")); // Modifier la propriété "IDBanque" en minuscules
+        nomBanqueCol.setCellValueFactory(new PropertyValueFactory<>("nomBanque")); // Modifier la propriété "NomBanque" en minuscules
 
         Revenus revenus = new Revenus();
         List<Revenus> listeRevenus = revenus.getRevenus();

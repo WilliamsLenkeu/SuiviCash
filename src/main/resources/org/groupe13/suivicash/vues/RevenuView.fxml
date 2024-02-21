@@ -17,7 +17,7 @@
             <TableColumn fx:id="montantCol" prefWidth="100.0" text="Montant" />
             <TableColumn fx:id="dateCol" prefWidth="100.0" text="Date" />
             <TableColumn fx:id="descriptionCol" prefWidth="250.0" text="Description" />
-            <TableColumn fx:id="idBanqueCol" prefWidth="100.0" text="ID Banque" />
+            <TableColumn fx:id="nomBanqueCol" prefWidth="150.0" text="Nom Banque" />
         </columns>
     </TableView>
 

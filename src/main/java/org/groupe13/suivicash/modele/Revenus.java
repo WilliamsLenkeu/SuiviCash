@@ -9,18 +9,18 @@ public class Revenus {
     private double montant;
     private Date DateRevenu;
     private String description;
-    private int idBanque; // Modifier le nom de la propriété en minuscules
+    private String nomBanque;
 
     // Constructeurs
     public Revenus() {
     }
 
-    public Revenus(int IDRevenu, double montant, Date DateRevenu, String description, int idBanque) {
+    public Revenus(int IDRevenu, double montant, Date DateRevenu, String description, String nomBanque) {
         this.IDRevenu = IDRevenu;
         this.montant = montant;
         this.DateRevenu = DateRevenu;
         this.description = description;
-        this.idBanque = idBanque;
+        this.nomBanque = nomBanque;
     }
 
     // Getters et setters
@@ -56,20 +56,19 @@ public class Revenus {
         this.description = description;
     }
 
-    public int getIdBanque() {
-        return idBanque;
+    public String getNomBanque() {
+        return nomBanque;
     }
 
-    public void setIdBanque(int idBanque) {
-        this.idBanque = idBanque;
+    public void setNomBanque(String nomBanque) {
+        this.nomBanque = nomBanque;
     }
 
-    // Méthode pour récupérer les revenus en fonction du montant
     public List<Revenus> getRevenus() {
         List<Revenus> revenusList = new ArrayList<>();
 
         try (Connection connection = connectionFile.getConnection()) {
-            String sql = "SELECT `IDRevenu`,`Montant`, `DateRevenu`, `Description`, `IDBanque` FROM `revenus`";
+            String sql = "SELECT revenus.IDRevenu, revenus.Montant, revenus.DateRevenu, revenus.Description, banques.NomBanque FROM revenus JOIN banques ON revenus.IDBanque = banques.IDBanque";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 ResultSet resultSet = statement.executeQuery();
 
@@ -79,7 +78,7 @@ public class Revenus {
                     revenus.setMontant(resultSet.getInt("Montant"));
                     revenus.setDateRevenu(resultSet.getDate("DateRevenu"));
                     revenus.setDescription(resultSet.getString("Description"));
-                    revenus.setIdBanque(resultSet.getInt("IDBanque"));
+                    revenus.setNomBanque(resultSet.getString("NomBanque"));
 
                     revenusList.add(revenus);
                 }
