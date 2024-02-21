@@ -65,4 +65,38 @@ public class Banque {
         }
         return totalSolde;
     }
+
+    // Méthode pour récupérer les dépenses pour une banque donnée pour une année spécifique
+    public static double getDepensesForYear(Connection connection, int IDBanque, int year) {
+        double totalDepenses = 0;
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT SUM(Montant) AS TotalDepenses FROM depenses WHERE IDBanque = ? AND YEAR(DateDepense) = ?");
+            statement.setInt(1, IDBanque);
+            statement.setInt(2, year);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                totalDepenses = resultSet.getDouble("TotalDepenses");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return totalDepenses;
+    }
+
+    // Méthode pour récupérer les revenus pour une banque donnée pour une année spécifique
+    public static double getRevenusForYear(Connection connection, int IDBanque, int year) {
+        double totalRevenus = 0;
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT SUM(Montant) AS TotalRevenus FROM revenus WHERE IDBanque = ? AND YEAR(DateRevenu) = ?");
+            statement.setInt(1, IDBanque);
+            statement.setInt(2, year);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                totalRevenus = resultSet.getDouble("TotalRevenus");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return totalRevenus;
+    }
 }

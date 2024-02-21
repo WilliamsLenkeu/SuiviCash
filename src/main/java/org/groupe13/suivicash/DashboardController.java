@@ -10,8 +10,8 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -30,6 +30,15 @@ public class DashboardController {
     @FXML
     private Label totalSoldeLabel;
 
+    @FXML
+    private ComboBox<Integer> yearComboBox;
+
+    @FXML
+    private BarChart<String, Number> depensesBarChart;
+
+    @FXML
+    private BarChart<String, Number> revenusBarChart;
+
     private ObservableList<Banque> banques;
 
     private Connection connection;
@@ -37,8 +46,19 @@ public class DashboardController {
     @FXML
     private void initialize() {
         connection = connectionFile.getConnection();
-        loadBanquesFromDatabase();
-        calculerTotalSolde();
+        if (connection != null) {
+            fillYearComboBox();
+            yearComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue != null) {
+                    updateCharts();
+                }
+            });
+            loadBanquesFromDatabase();
+            calculerTotalSolde();
+        } else {
+            // Gérer le cas où la connexion à la base de données a échoué
+            System.err.println("La connexion à la base de données a échoué.");
+        }
     }
 
     @FXML
@@ -60,10 +80,6 @@ public class DashboardController {
         }
     }
 
-    /*public void setStage(Stage stage) {
-        this.stage = stage;
-    }*/
-
     private void loadBanquesFromDatabase() {
         banques = FXCollections.observableArrayList();
         banques.addAll(Banque.getAllBanques(connection));
@@ -72,6 +88,65 @@ public class DashboardController {
 
     private void calculerTotalSolde() {
         double totalSolde = Banque.getTotalSolde(connection);
-        totalSoldeLabel.setText(String.format("%.2f", totalSolde));
+        totalSoldeLabel.setText(String.format("%.2f", totalSolde) + " XAF");
+    }
+
+    private void fillYearComboBox() {
+        ObservableList<Integer> years = FXCollections.observableArrayList();
+        int currentYear = java.time.Year.now().getValue();
+        for (int i = currentYear; i <= currentYear + 5; i++) {
+            years.add(i);
+        }
+        yearComboBox.setItems(years);
+        yearComboBox.getSelectionModel().selectFirst();
+    }
+
+    @FXML
+    private void updateCharts() {
+        Integer selectedYear = yearComboBox.getValue();
+        if (selectedYear != null) {
+            updateDepensesChart(selectedYear);
+            updateRevenusChart(selectedYear);
+        }
+    }
+
+    private void updateDepensesChart(int year) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT NomBanque, SUM(Montant) AS TotalDepenses FROM depenses JOIN banques ON depenses.IDBanque = banques.IDBanque WHERE YEAR(DateDepense) = ? GROUP BY NomBanque");
+            statement.setInt(1, year);
+            ResultSet resultSet = statement.executeQuery();
+
+            XYChart.Series<String, Number> series = new XYChart.Series<>();
+            while (resultSet.next()) {
+                String nomBanque = resultSet.getString("NomBanque");
+                double totalDepenses = resultSet.getDouble("TotalDepenses");
+                series.getData().add(new XYChart.Data<>(nomBanque, totalDepenses));
+            }
+
+            depensesBarChart.getData().clear();
+            depensesBarChart.getData().add(series);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void updateRevenusChart(int year) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT NomBanque, SUM(Montant) AS TotalRevenus FROM revenus JOIN banques ON revenus.IDBanque = banques.IDBanque WHERE YEAR(DateRevenu) = ? GROUP BY NomBanque");
+            statement.setInt(1, year);
+            ResultSet resultSet = statement.executeQuery();
+
+            XYChart.Series<String, Number> series = new XYChart.Series<>();
+            while (resultSet.next()) {
+                String nomBanque = resultSet.getString("NomBanque");
+                double totalRevenus = resultSet.getDouble("TotalRevenus");
+                series.getData().add(new XYChart.Data<>(nomBanque, totalRevenus));
+            }
+
+            revenusBarChart.getData().clear();
+            revenusBarChart.getData().add(series);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
