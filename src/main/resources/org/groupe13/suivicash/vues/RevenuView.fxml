@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="org.groupe13.suivicash.RevenuController"
-      spacing="10"
-      alignment="CENTER">
+<AnchorPane xmlns="http://javafx.com/javafx/17.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            prefWidth="806.0" prefHeight="518.0"
+            fx:controller="org.groupe13.suivicash.RevenuController">
 
-    <children>
-        <Button fx:id="AjouterRevenuButton" text="Ajouter un Revenu" onAction="#handleAjouterRevenuClick" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px;" />
-    </children>
-</VBox>
+    <Button fx:id="AjouterRevenuButton" layoutX="24.0" layoutY="14.0" onAction="#handleAjouterRevenuClick" text="Ajouter Revenu" />
+
+    <TableView fx:id="revenusTableView" layoutX="24.0" layoutY="59.0" prefWidth="755.0" prefHeight="400.0">
+        <columns>
+            <TableColumn fx:id="idCol" prefWidth="100.0" text="ID" />
+            <TableColumn fx:id="montantCol" prefWidth="100.0" text="Montant" />
+            <TableColumn fx:id="dateCol" prefWidth="100.0" text="Date" />
+            <TableColumn fx:id="descriptionCol" prefWidth="250.0" text="Description" />
+            <TableColumn fx:id="idBanqueCol" prefWidth="100.0" text="ID Banque" />
+        </columns>
+    </TableView>
+
+</AnchorPane>

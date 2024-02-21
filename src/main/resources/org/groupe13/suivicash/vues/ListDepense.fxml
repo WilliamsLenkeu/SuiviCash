@@ -1,25 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TableColumn?>
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.groupe13.suivicash.ListDepenseController"
-            prefHeight="400.0" prefWidth="600.0">
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
 
-    <Button fx:id="AjouterDepenseButton" text=" Ajouter Depense" onAction="#handleAjouterDepenseClick"  />
-    <?import javafx.scene.control.TableView?>
-    <!-- Ajoutez cela à votre FXML -->
-    <TableView fx:id="depenseTableView" layoutY="50">
+<AnchorPane xmlns="http://javafx.com/javafx/17.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            prefWidth="806.0" prefHeight="518.0" fx:controller="org.groupe13.suivicash.ListDepenseController">
+
+    <Button fx:id="AjouterDepenseButton" layoutX="24.0" layoutY="14.0" onAction="#handleAjouterDepenseClick" text="Ajouter Dépense" />
+
+    <TableView fx:id="depenseTableView" layoutX="24.0" layoutY="59.0" prefWidth="755.0" prefHeight="400.0">
         <columns>
-            <TableColumn text="ID" fx:id="idCol"/>
-            <TableColumn text="Montant" fx:id="montantCol"/>
-            <TableColumn text="Date" fx:id="dateCol"/>
-            <TableColumn text="Description" fx:id="descriptionCol"/>
-            <TableColumn text="ID Banque" fx:id="idBanqueCol"/>
-            <TableColumn text="ID Catégorie" fx:id="idCategorieCol"/>
+            <TableColumn fx:id="idCol" prefWidth="100.0" text="ID" />
+            <TableColumn fx:id="montantCol" prefWidth="100.0" text="Montant" />
+            <TableColumn fx:id="dateCol" prefWidth="100.0" text="Date" />
+            <TableColumn fx:id="descriptionCol" prefWidth="250.0" text="Description" />
+            <TableColumn fx:id="idBanqueCol" prefWidth="100.0" text="ID Banque" />
+            <TableColumn fx:id="idCategorieCol" prefWidth="100.0" text="ID Catégorie" />
         </columns>
     </TableView>
 
