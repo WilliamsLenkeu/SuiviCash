@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.ChoiceBox?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+
+            prefHeight="400.0" prefWidth="600.0">
+
+    <VBox alignment="CENTER" spacing="10">
+        <Label text="Ajout de Dépense" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+        <HBox spacing="10">
+            <Label text="Date :"/>
+            <DatePicker fx:id="datePicker" />
+        </HBox>
+
+        <HBox spacing="10">
+            <Label text="Montant :"/>
+            <TextField fx:id="montantField" />
+        </HBox>
+
+
+
+        <HBox spacing="10">
+            <Label text="Banque: "/>
+            <ChoiceBox fx:id="banqueChoiceBox" layoutX="123" layoutY="136" prefHeight="25" prefWidth="120" />
+
+        </HBox>
+
+        <HBox spacing="10">
+            <Label text="Description :"/>
+            <TextField fx:id="descriptionField" />
+        </HBox>
+
+        <Button text="Ajouter Dépense" onAction="#HandleAjouterDepense"/>
+    </VBox>
+
+</AnchorPane>

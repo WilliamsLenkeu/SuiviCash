@@ -70,7 +70,7 @@ public class DepenseController {
             Depense depense= new Depense();
 
             // Accéder au contrôleur du nouveau contenu
-            ListDepenseController nouveauContenuController= new ListDepenseController(depense.getDepensesByCategorie(nom));
+            ListDepenseController nouveauContenuController= new ListDepenseController(depense.getDepensesByCategorie(nom),nom);
             nouveauContenuController  = loader.getController();
 
             // Remplacer le contenu actuel par le nouveau contenu
@@ -82,6 +82,8 @@ public class DepenseController {
 
 
     private void handleCategoryButtonClick(String categoryName) {
+        MaSuperGlobale.NomCategorie= categoryName;
+        System.out.println(categoryName);
         chargerNouveauContenuAvecInfos(categoryName);
         RendreVisibile(1);
 
@@ -96,6 +98,7 @@ public class DepenseController {
         alert.showAndWait();
 
     }
+
     public List<String> recuperation(){
         List<String> categories = new ArrayList<>();
         Connection connection = null;

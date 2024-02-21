@@ -9,8 +9,7 @@ public class Depense {
     private int idDepense;
     private double montant;
     private Date dateDepense;
-    private int mois;
-    private int annee;
+
     private String description;
     private int idBanque;
     private int idCategorie;
@@ -21,12 +20,10 @@ public class Depense {
     public Depense() {
     }
 
-    public Depense(int idDepense, double montant, Date dateDepense, int mois, int annee, String description, int idBanque, int idCategorie) {
+    public Depense(int idDepense, double montant, Date dateDepense, String description, int idBanque, int idCategorie) {
         this.idDepense = idDepense;
         this.montant = montant;
         this.dateDepense = dateDepense;
-        this.mois = mois;
-        this.annee = annee;
         this.description = description;
         this.idBanque = idBanque;
         this.idCategorie = idCategorie;
@@ -55,22 +52,6 @@ public class Depense {
 
     public void setDateDepense(Date dateDepense) {
         this.dateDepense = dateDepense;
-    }
-
-    public int getMois() {
-        return mois;
-    }
-
-    public void setMois(int mois) {
-        this.mois = mois;
-    }
-
-    public int getAnnee() {
-        return annee;
-    }
-
-    public void setAnnee(int annee) {
-        this.annee = annee;
     }
 
     public String getDescription() {
@@ -108,7 +89,7 @@ public class Depense {
             int idCategorie = getIdCategorieByNom(categorieNom, connection);
 
             // Effectuez une requête SQL pour récupérer les dépenses en fonction de l'ID de la catégorie
-            String sql = "SELECT `IDDepense`, `Montant`, `DateDepense`, `Mois`, `Annee`, `Description`, `IDBanque`, `IDCategorie` FROM `depenses` WHERE `IDCategorie` = ?";
+            String sql = "SELECT `IDDepense`, `Montant`, `DateDepense` , `Description`, `IDBanque`, `IDCategorie` FROM `depenses` WHERE `IDCategorie` = ?";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setInt(1, idCategorie);
 
@@ -119,8 +100,7 @@ public class Depense {
                     depense.setIdDepense(resultSet.getInt("IDDepense"));
                     depense.setMontant(resultSet.getDouble("Montant"));
                     depense.setDateDepense(resultSet.getDate("DateDepense"));
-                    depense.setMois(resultSet.getInt("Mois"));
-                    depense.setAnnee(resultSet.getInt("Annee"));
+
                     depense.setDescription(resultSet.getString("Description"));
                     depense.setIdBanque(resultSet.getInt("IDBanque"));
                     depense.setIdCategorie(resultSet.getInt("IDCategorie"));

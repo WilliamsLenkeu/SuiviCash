@@ -2,11 +2,25 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="org.groupe13.suivicash.ListDepenseController"
             prefHeight="400.0" prefWidth="600.0">
 
     <Button fx:id="AjouterDepenseButton" text=" Ajouter Depense" onAction="#handleAjouterDepenseClick"  />
+    <?import javafx.scene.control.TableView?>
+    <!-- Ajoutez cela à votre FXML -->
+    <TableView fx:id="depenseTableView" layoutY="50">
+        <columns>
+            <TableColumn text="ID" fx:id="idCol"/>
+            <TableColumn text="Montant" fx:id="montantCol"/>
+            <TableColumn text="Date" fx:id="dateCol"/>
+            <TableColumn text="Description" fx:id="descriptionCol"/>
+            <TableColumn text="ID Banque" fx:id="idBanqueCol"/>
+            <TableColumn text="ID Catégorie" fx:id="idCategorieCol"/>
+        </columns>
+    </TableView>
 
 </AnchorPane>
