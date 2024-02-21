@@ -19,7 +19,7 @@ public class connectionFile {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-            System.out.println("Connexion réussie à la base de données MySQL !");
+            /*System.out.println("Connexion réussie à la base de données MySQL !");*/
         } catch (SQLException e) {
             System.out.println("Erreur lors de la connexion à la base de données MySQL : " + e.getMessage());
         }
@@ -31,7 +31,7 @@ public class connectionFile {
         if (connection != null) {
             try {
                 connection.close();
-                System.out.println("Connexion à la base de données fermée avec succès !");
+                /*System.out.println("Connexion à la base de données fermée avec succès !");*/
             } catch (SQLException e) {
                 System.out.println("Erreur lors de la fermeture de la connexion à la base de données : " + e.getMessage());
             }
@@ -133,7 +133,7 @@ public class connectionFile {
         if (statement != null) {
             try {
                 statement.close();
-                System.out.println("Déclaration fermée avec succès !");
+                /*System.out.println("Déclaration fermée avec succès !");*/
             } catch (SQLException e) {
                 System.out.println("Erreur lors de la fermeture de la déclaration : " + e.getMessage());
             }
@@ -145,7 +145,7 @@ public class connectionFile {
         if (resultSet != null) {
             try {
                 resultSet.close();
-                System.out.println("Résultat fermé avec succès !");
+                /*System.out.println("Résultat fermé avec succès !");*/
             } catch (SQLException e) {
                 System.out.println("Erreur lors de la fermeture du résultat : " + e.getMessage());
             }

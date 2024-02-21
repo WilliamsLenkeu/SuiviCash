@@ -89,7 +89,6 @@ public class DepenseController {
 
     }
 
-
     private void  afficherBoiteDialogueInformation(String titre, String contenu) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(titre);
