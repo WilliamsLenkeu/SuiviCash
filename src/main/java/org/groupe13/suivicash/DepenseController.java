@@ -2,6 +2,7 @@ package org.groupe13.suivicash;
 
 import javafx.collections.FXCollections;
 import javafx.scene.control.*;
+import javafx.scene.paint.Color;
 import org.groupe13.suivicash.modele.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -91,27 +92,11 @@ public class DepenseController {
         LocalDate currentDate = LocalDate.now();
         String moisActuel = currentDate.format(DateTimeFormatter.ofPattern("MMMM")); // Obtenir le nom du mois
         MonthComboBox.setValue(moisActuel);
-        // Récupérer la liste des catégories
-        List<Categorie> categories = new Categorie().getAllCategories(-1,-1);
+
+        updateListViewWithFilteredData(currentDate.getMonthValue(),currentDate.getYear());
+
+
         RendreVisibile(0);
-        // Récupérer la liste des dépenses
-        Depense depense = new Depense();
-
-        double total= 0.0;
-        // Ajouter les catégories à la ListView en tant que boutons cliquables
-        for (Categorie category : categories) {
-            double totalDepense = category.getTotalDepense();
-            String displayText = category.getNomCategorie() + " - Total Dépense : " + totalDepense;
-            Button categoryButton = new Button(displayText);
-            categoryButton.setOnAction(event -> handleCategoryButtonClick(category.getNomCategorie()));
-            CategorieListView.getItems().add(categoryButton);
-            total+= category.getTotalDepense();
-        }
-        MonTotal.setText(""+total);
-        // Vérifier si des limites existent
-        if (!((List<?>) limites).isEmpty()){
-
-        }
     }
 
     private void chargerNouveauContenuAvecInfos(String nom) {
@@ -260,7 +245,10 @@ public class DepenseController {
     @FXML
     private void handleMonthFilterChange(ActionEvent event) {
         String moisSelectionne = (String) MonthComboBox.getValue();
-
+        if(moisSelectionne=="Tous"){
+            updateListViewWithFilteredData(-1, -1);
+            return;
+        }
         // Assurez-vous que les noms des mois en français correspondent aux constantes d'énumération Month
         Month selectedMonth = Month.JANUARY; // Valeur par défaut
 
@@ -303,41 +291,62 @@ public class DepenseController {
                 break;
 
         }
+
         // Utilisez la constante d'énumération Month dans votre logique
         int numeroMois = selectedMonth.getValue();
-        System.out.println(numeroMois);
+
         int anneeActuelle = LocalDate.now().getYear();
 
         // Mettre à jour la liste des catégories en fonction du mois et de l'année
         updateListViewWithFilteredData(numeroMois, anneeActuelle);
     }
 
-    private void updateListViewWithFilteredData(int numeroMois, int annee) {
-        // Récupérer les catégories pour le mois et l'année spécifiques
-        List<Categorie> categories = new Categorie().getAllCategories(numeroMois, annee);
+    private  void updateListViewWithFilteredData(int numeroMois, int annee) {
+
+        // Récupérer la liste des catégories
+        List<Categorie> categories = new Categorie().getAllCategories(annee, numeroMois);
 
         // Effacer la ListView actuelle
         CategorieListView.getItems().clear();
 
-        double total = 0.0;
 
-        // Ajouter les catégories filtrées à la ListView en tant que boutons cliquables
+        double total= 0.0;
+        // Ajouter les catégories à la ListView en tant que boutons cliquables
         for (Categorie category : categories) {
             double totalDepense = category.getTotalDepense();
-
-
-            String displayText = category.getNomCategorie() + " - Total Dépense : " + totalDepense;
+            String displayText = category.getNomCategorie() + "     - Total Dépense : " + totalDepense;
             Button categoryButton = new Button(displayText);
             categoryButton.setOnAction(event -> handleCategoryButtonClick(category.getNomCategorie()));
             CategorieListView.getItems().add(categoryButton);
-            total += totalDepense;
+            total+= category.getTotalDepense();
+        }
+        MonTotal.setText(""+total);
+        // Initialiser la classe LimiteDepense
+        LimiteDepense limiteDepense = new LimiteDepense();
+
+        // Récupérer la liste des limites depuis la base de données
+        limites = limiteDepense.getLimites();
+
+        // Vérifier si des limites existent
+        if (!(limites).isEmpty()) {
+            if(limites.get(0).getLimite()<total){
+
+                Month month = Month.of(numeroMois);
+                String nomMois = month.toString();
+                Avertissement.setText("Attention, vous avez dépassé votre limite de dépense pour "+nomMois+" "+LocalDate.now().getYear());
+                Avertissement.setStyle("-fx-text-fill: red;");
+                Avertissement.setVisible(true);
+                Avertissement.setManaged(true);
+            }
+
         }
 
-        MonTotal.setText("" + total);
     }
 
-
-
-
-
 }
+
+
+
+
+
+

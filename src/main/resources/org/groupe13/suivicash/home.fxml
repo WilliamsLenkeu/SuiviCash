@@ -13,20 +13,23 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="610.0" prefWidth="939.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="org.groupe13.suivicash.HomeController">
+<VBox prefHeight="610.0" prefWidth="939.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.groupe13.suivicash.HomeController">
     <children>
         <!-- En-tête -->
-        <AnchorPane prefHeight="92.0" prefWidth="900.0">
+        <AnchorPane prefHeight="92.0" prefWidth="900.0" style="-fx-background-color: #366337;">
             <padding>
                 <Insets left="10.0" right="10.0" />
             </padding>
             <children>
-                <Text layoutX="91.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SuiviCash" wrappingWidth="204.54442596435547">
+                <Text fill="#e36c09" layoutX="91.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SuiviCash" wrappingWidth="204.54442596435547">
                     <font>
-                        <Font name="Arial" size="36.0" />
+                        <Font name="Anson" size="36.0" />
                     </font>
                 </Text>
-                <Text layoutX="91.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Le suivi des dépenses n'a jamais été aussi facile" wrappingWidth="305.68048095703125" />
+                <Text fill="WHITE" layoutX="91.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Le suivi des dépenses n'a jamais été aussi facile" wrappingWidth="305.68048095703125">
+               <font>
+                  <Font name="Montserrat Light" size="12.0" />
+               </font></Text>
             </children>
         </AnchorPane>
         <!-- Contenu principal -->
@@ -37,7 +40,10 @@
                     <children>
                         <VBox alignment="TOP_CENTER" prefHeight="520.0" prefWidth="147.0" spacing="10.0">
                             <children>
-                                <Button fx:id="DepenseButton" mnemonicParsing="false" onAction="#handleDepenseButtonClick" prefWidth="120.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 12px; -fx-padding: 10px 10px;" text="Dépenses" />
+                                <Button fx:id="DepenseButton" mnemonicParsing="false" onAction="#handleDepenseButtonClick" prefWidth="120.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 12px; -fx-padding: 10px 10px;" text="Dépenses" textFill="#f8f8f8">
+                           <font>
+                              <Font name="Montserrat Regular" size="12.0" />
+                           </font></Button>
                                 <Button fx:id="RevenuButton" mnemonicParsing="false" onAction="#handleRevenuButtonClick" prefWidth="120.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 12; -fx-padding: 10px 10px;" text="Revenus" />
                                 <Button fx:id="BanqueButton" mnemonicParsing="false" onAction="#handleDashboardButtonClick" prefWidth="120.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 12px; -fx-padding: 10px 10px;" text="Banques" />
                             </children>
