@@ -2,6 +2,7 @@ package org.groupe13.suivicash;
 
 import javafx.collections.FXCollections;
 import javafx.scene.control.*;
+import javafx.scene.paint.Color;
 import org.groupe13.suivicash.modele.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -320,10 +321,32 @@ public class DepenseController {
             total+= category.getTotalDepense();
         }
         MonTotal.setText(""+total);
+        // Initialiser la classe LimiteDepense
+        LimiteDepense limiteDepense = new LimiteDepense();
+
+        // Récupérer la liste des limites depuis la base de données
+        limites = limiteDepense.getLimites();
+
+        // Vérifier si des limites existent
+        if (!(limites).isEmpty()) {
+            if(limites.get(0).getLimite()<total){
+
+                Month month = Month.of(numeroMois);
+                String nomMois = month.toString();
+                Avertissement.setText("Attention, vous avez dépassé votre limite de dépense pour "+nomMois+" "+LocalDate.now().getYear());
+                Avertissement.setStyle("-fx-text-fill: red;");
+                Avertissement.setVisible(true);
+                Avertissement.setManaged(true);
+            }
+
+        }
+
+        }
+
     }
 
 
 
 
 
-}
+

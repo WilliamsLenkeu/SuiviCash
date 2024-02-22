@@ -54,7 +54,8 @@
                 </items>
             </ComboBox>
 
-            <Text fx:id="Avertissement" text="Avertissons"></Text>
+            <Text fx:id="Avertissement" visible="false" managed="false"/>
+
             <!--Liste Categorie-->
             <Button fx:id="AjouterCategorieButton"  onAction="#handleAjouterCategorieClick"
                     prefHeight="40.0" prefWidth="200.0" text="Ajouter Catégorie"/>
