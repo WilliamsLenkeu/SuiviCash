@@ -37,7 +37,7 @@ public class HomeController {
 
 
     public void handleSecuriteButtonClick(ActionEvent actionEvent) {
-        loadView("vues/MotDePasseView.fxml");
+        loadView("vues/MotDePasse.fxml");
     }
     private void loadDashboard() {
         loadView("vues/DashboardView.fxml");
