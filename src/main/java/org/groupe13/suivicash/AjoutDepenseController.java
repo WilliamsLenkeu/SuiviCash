@@ -86,8 +86,6 @@ public class AjoutDepenseController {
 
 
 
-    // ... autres imports ...
-
     public void HandleAjouterDepense(ActionEvent actionEvent) {
         // Récupérer les valeurs des champs
         LocalDate date = datePicker.getValue();
@@ -148,7 +146,7 @@ public class AjoutDepenseController {
                             debiterSoldeBanque(idBanque, montant);
 
                             // Afficher un message de succès
-                            afficherBoiteDialogue(AlertType.INFORMATION, "Succès", "Dépense ajoutée avec succès. ID de dépense : " + idDepense);
+                            afficherBoiteDialogue(AlertType.INFORMATION, "Succès", "Dépense ajoutée avec succès. Le solde la banque choisie a ete debite avec succes rendez vous dans Banques pour voir le nouveau solde" );
                         } else {
                             afficherBoiteDialogue(AlertType.ERROR, "Erreur", "Échec de l'obtention de l'ID de la dépense.");
                         }
