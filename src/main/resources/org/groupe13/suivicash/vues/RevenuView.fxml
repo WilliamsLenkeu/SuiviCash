@@ -13,7 +13,6 @@
 
     <TableView fx:id="revenusTableView" layoutX="24.0" layoutY="59.0" prefWidth="755.0" prefHeight="400.0">
         <columns>
-            <TableColumn fx:id="idCol" prefWidth="100.0" text="ID" />
             <TableColumn fx:id="montantCol" prefWidth="100.0" text="Montant" />
             <TableColumn fx:id="dateCol" prefWidth="100.0" text="Date" />
             <TableColumn fx:id="descriptionCol" prefWidth="250.0" text="Description" />

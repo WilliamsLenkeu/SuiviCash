@@ -68,7 +68,8 @@ public class Revenus {
         List<Revenus> revenusList = new ArrayList<>();
 
         try (Connection connection = connectionFile.getConnection()) {
-            String sql = "SELECT revenus.IDRevenu, revenus.Montant, revenus.DateRevenu, revenus.Description, banques.NomBanque FROM revenus JOIN banques ON revenus.IDBanque = banques.IDBanque";
+            String sql = "SELECT revenus.IDRevenu, revenus.Montant, revenus.DateRevenu, revenus.Description, " +
+                    "banques.NomBanque FROM revenus JOIN banques ON revenus.IDBanque = banques.IDBanque";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 ResultSet resultSet = statement.executeQuery();
 

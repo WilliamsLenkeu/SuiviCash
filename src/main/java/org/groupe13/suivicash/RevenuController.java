@@ -27,8 +27,6 @@ public class RevenuController {
     @FXML
     private TableView<Revenus> revenusTableView;
     @FXML
-    private TableColumn<Revenus, Integer> idCol;
-    @FXML
     private TableColumn<Revenus, Double> montantCol;
     @FXML
     private TableColumn<Revenus, Date> dateCol;
@@ -39,7 +37,6 @@ public class RevenuController {
 
     public void initialize() {
         // Initialiser les colonnes avec les propriétés de la classe Revenus
-        idCol.setCellValueFactory(new PropertyValueFactory<>("IDRevenu"));
         montantCol.setCellValueFactory(new PropertyValueFactory<>("montant")); // Modifier la propriété "Montant" en minuscules
         dateCol.setCellValueFactory(new PropertyValueFactory<>("DateRevenu"));
         descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description")); // Modifier la propriété "Description" en minuscules
