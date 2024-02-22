@@ -47,6 +47,7 @@
             <TableColumn prefWidth="100" text="Solde (XAF)">
                 <cellValueFactory><PropertyValueFactory property="solde" /></cellValueFactory>
             </TableColumn>
+            <TableColumn fx:id="deleteCol" prefWidth="156.0" text="Supprimer" />
         </columns>
     </TableView>
     <Label style="-fx-font-size: 14px;" text="Total des soldes des banques: " />
