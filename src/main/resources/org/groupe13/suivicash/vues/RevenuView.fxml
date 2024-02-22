@@ -7,19 +7,22 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/17.0.1" xmlns:fx="http://javafx.com/fxml/1"
             prefWidth="806.0" prefHeight="518.0"
-            fx:controller="org.groupe13.suivicash.RevenuController">
+            fx:controller="org.groupe13.suivicash.RevenuController"
+            style="-fx-background-color: #f0f0f0;">
 
-    <Button fx:id="AjouterRevenuButton" layoutX="24.0" layoutY="14.0" onAction="#handleAjouterRevenuClick" text="Ajouter Revenu" />
+    <Button fx:id="AjouterRevenuButton" layoutX="24.0" layoutY="14.0" onAction="#handleAjouterRevenuClick"
+            text="Ajouter Revenu"
+            style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px;" />
 
-    <TableView fx:id="revenusTableView" layoutX="24.0" layoutY="59.0" prefWidth="755.0" prefHeight="400.0">
+    <TableView fx:id="revenusTableView" layoutX="24.0" layoutY="59.0" prefWidth="755.0" prefHeight="440.0"
+               style="-fx-background-color: white;">
         <columns>
-            <TableColumn fx:id="montantCol" prefWidth="100.0" text="Montant" />
-            <TableColumn fx:id="dateCol" prefWidth="100.0" text="Date" />
-            <TableColumn fx:id="descriptionCol" prefWidth="250.0" text="Description" />
-            <TableColumn fx:id="nomBanqueCol" prefWidth="150.0" text="Nom Banque" />
+            <TableColumn fx:id="montantCol" prefWidth="150.0" text="Montant" />
+            <TableColumn fx:id="dateCol" prefWidth="150.0" text="Date" />
+            <TableColumn fx:id="descriptionCol" prefWidth="300.0" text="Description" />
+            <TableColumn fx:id="nomBanqueCol" prefWidth="200.0" text="Nom Banque" />
 
             <TableColumn fx:id="deleteCol" prefWidth="156.0" text="Supprimer" />
-            <!--test-->
         </columns>
     </TableView>
 

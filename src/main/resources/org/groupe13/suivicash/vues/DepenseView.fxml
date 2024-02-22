@@ -15,38 +15,39 @@
 <?import java.lang.String?>
 <VBox prefHeight="518.0" prefWidth="806.0" spacing="15.0"
       xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="org.groupe13.suivicash.DepenseController">
+      fx:controller="org.groupe13.suivicash.DepenseController"
+      style="-fx-background-color: #f0f0f0;">
     <padding>
         <Insets bottom="20" left="20" right="20" top="20" />
     </padding>
     <children>
         <!--VBox pour la page d'accueil -->
-        <VBox fx:id="MonVbox">
+        <VBox fx:id="MonVbox" spacing="10" style="-fx-background-color: #ffffff; -fx-padding: 10px; -fx-border-radius: 10px;">
             <!--Changer de limites-->
-            <HBox fx:id="LimiteChanger">
-                <Label text="Ma limite de depense" ></Label>
-                <Text text="" fx:id="MaLimite"></Text>
+            <HBox fx:id="LimiteChanger" spacing="10">
+                <Label text="Ma limite de dépense" />
+                <Text text="" fx:id="MaLimite" />
                 <Button fx:id="SupprimerLimiteButton"  onAction="#handleSupprimerLimiteClick"
-                        prefHeight="40.0" prefWidth="200.0" text="Supprimer la Limite"/>
+                        prefHeight="40.0" prefWidth="200.0" text="Supprimer la Limite" style="-fx-background-color: #dddddd; -fx-text-fill: black; -fx-font-size: 14px;"/>
 
                 <Button fx:id="ChangerLimiteButton"  onAction="#handleChangerLimiteClick"
-                        prefHeight="40.0" prefWidth="200.0" text="Changer Limite"/>
+                        prefHeight="40.0" prefWidth="200.0" text="Changer Limite" style="-fx-background-color: #dddddd; -fx-text-fill: black; -fx-font-size: 14px;"/>
 
             </HBox>
 
             <!--Bouton pour ajouter une limite-->
-            <HBox fx:id="AjouterLimite">
+            <HBox fx:id="AjouterLimite" spacing="10">
 
                 <Button fx:id="AjouterLimiteButton"  onAction="#handleAjouterLimiteClick"
-                        prefHeight="40.0" prefWidth="200.0" text="Ajouter une Limite"/>
+                        prefHeight="40.0" prefWidth="200.0" text="Ajouter une Limite" style="-fx-background-color: #dddddd; -fx-text-fill: black; -fx-font-size: 14px;"/>
 
             </HBox>
 
-            <HBox>
-                <Label text="Mon total de depense: "></Label>
+            <HBox spacing="10">
+                <Label text="Mon total de dépense: " />
                 <Text fx:id="MonTotal" text=""/>
             </HBox>
-            <ComboBox fx:id="MonthComboBox" onAction="#handleMonthFilterChange">
+            <ComboBox fx:id="MonthComboBox" onAction="#handleMonthFilterChange" style="-fx-font-size: 14px;">
                 <items>
                     <FXCollections fx:factory="observableArrayList">
 
@@ -58,13 +59,13 @@
 
             <!--Liste Categorie-->
             <Button fx:id="AjouterCategorieButton"  onAction="#handleAjouterCategorieClick"
-                    prefHeight="40.0" prefWidth="200.0" text="Ajouter Catégorie"/>
+                    prefHeight="40.0" prefWidth="200.0" text="Ajouter Catégorie" style="-fx-background-color: #dddddd; -fx-text-fill: black; -fx-font-size: 14px;"/>
 
             <ListView fx:id="CategorieListView" prefHeight="800.0" prefWidth="766.0" />
         </VBox>
 
-        <!--BorderPane pour la liste des depenses -->
-        <BorderPane fx:id="Categorie" prefHeight="458.0" prefWidth="586.0">
+        <!--BorderPane pour la liste des dépenses -->
+        <BorderPane fx:id="Categorie" prefHeight="458.0" prefWidth="586.0" style="-fx-background-color: #ffffff; -fx-padding: 10px; -fx-border-radius: 10px;">
             <center>
                 <AnchorPane fx:id="mainContent" />
             </center>

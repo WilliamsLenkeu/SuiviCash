@@ -1,33 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.collections.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<?import javafx.collections.FXCollections?>
-<?import java.lang.String?>
-<AnchorPane prefHeight="320.0" prefWidth="300" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.groupe13.suivicash.AjoutRevenuController">
+<AnchorPane prefHeight="381.0" prefWidth="300" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.groupe13.suivicash.AjoutRevenuController">
+    <stylesheets>
+        <FXCollections fx:factory="observableArrayList">
+            <String fx:value="                 .label {                     -fx-font-size: 14px;                     -fx-font-weight: bold;                     -fx-text-fill: #333333;                 }                  .button {                     -fx-background-color: #4CAF50;                     -fx-text-fill: white;                     -fx-font-size: 14px;                     -fx-padding: 10px 20px;                     -fx-border-radius: 5px;                 }                  .button:hover {                     -fx-background-color: #45a049;                 }                  .text-field {                     -fx-background-color: #f2f2f2;                     -fx-border-color: #ccc;                     -fx-border-width: 1px;                     -fx-border-radius: 5px;                     -fx-padding: 5px;                 }                  .date-picker {                     -fx-background-color: #f2f2f2;                     -fx-border-color: #ccc;                     -fx-border-width: 1px;                     -fx-border-radius: 5px;                     -fx-padding: 5px;                 }             " />
+        </FXCollections>
+    </stylesheets>
     <children>
-        <Label layoutX="58" layoutY="20" style="-fx-font-size: 14px;" text="Montant :" />
-        <TextField fx:id="montantTextField" layoutX="123" layoutY="16" prefHeight="25" prefWidth="120" />
-        <Label layoutX="58" layoutY="60" style="-fx-font-size: 14px;" text="Date :" />
-        <DatePicker fx:id="dateTextField" layoutX="123" layoutY="56" prefHeight="25" prefWidth="120" />
-        <Label layoutX="58" layoutY="100" style="-fx-font-size: 14px;" text="Description :" />
-        <TextField fx:id="descriptionTextField" layoutX="123" layoutY="96" prefHeight="25" prefWidth="120" />
-        <Label layoutX="58" layoutY="140" style="-fx-font-size: 14px;" text="Banque :" />
-        <ChoiceBox fx:id="banqueChoiceBox" layoutX="123" layoutY="136" prefHeight="25" prefWidth="120" />
-        <Label layoutX="58" layoutY="180" style="-fx-font-size: 14px;" text="Type de répétition :" />
-        <ChoiceBox fx:id="typeRepetitionChoiceBox" layoutX="198" layoutY="176" prefHeight="25" prefWidth="90">
-            <items>
-                <FXCollections fx:factory="observableArrayList">
-                    <String fx:value="jour" />
-                    <String fx:value="semaine" />
-                    <String fx:value="mois" />
-                    <String fx:value="année" />
-                </FXCollections>
-            </items>
-        </ChoiceBox>
-        <Label layoutX="58" layoutY="220" style="-fx-font-size: 14px;" text="Période de répétition :" />
-        <TextField fx:id="periodeRepetitionTextField" layoutX="198" layoutY="216" prefHeight="25" prefWidth="45" />
-        <Button layoutX="123" layoutY="280" mnemonicParsing="false" onAction="#validerAjoutRevenu" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px;" text="Valider" />
+        <VBox layoutX="38" layoutY="20" spacing="10">
+            <Label styleClass="label" text="Montant :" />
+            <TextField fx:id="montantTextField" prefHeight="25" prefWidth="220" styleClass="text-field" />
+            <Label styleClass="label" text="Date :" />
+            <DatePicker fx:id="dateTextField" prefHeight="25" prefWidth="220" styleClass="date-picker" />
+            <Label styleClass="label" text="Description :" />
+            <TextField fx:id="descriptionTextField" prefHeight="25" prefWidth="220" styleClass="text-field" />
+            <Label styleClass="label" text="Banque :" />
+            <ChoiceBox fx:id="banqueChoiceBox" prefHeight="25" prefWidth="220" />
+            <HBox spacing="10">
+                <VBox spacing="5">
+                    <Label styleClass="label" text="Type de répétition :" />
+                    <ChoiceBox fx:id="typeRepetitionChoiceBox" prefHeight="25" prefWidth="100">
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="jour" />
+                                <String fx:value="semaine" />
+                                <String fx:value="mois" />
+                                <String fx:value="année" />
+                            </FXCollections>
+                        </items>
+                    </ChoiceBox>
+                </VBox>
+                <VBox spacing="5">
+                    <Label styleClass="label" text="Période de répétition :" />
+                    <TextField fx:id="periodeRepetitionTextField" prefHeight="25" prefWidth="100" styleClass="text-field" />
+                </VBox>
+            </HBox>
+        </VBox>
+        <Button layoutX="123.0" layoutY="341.0" mnemonicParsing="false" onAction="#validerAjoutRevenu" styleClass="button" text="Valider" />
     </children>
 </AnchorPane>
