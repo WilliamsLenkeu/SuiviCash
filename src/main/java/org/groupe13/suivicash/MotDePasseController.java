@@ -96,7 +96,7 @@ public class MotDePasseController {
         // Appeler la méthode pour modifier le mot de passe dans la base de données
         motDePasse.modifierMotDePasse();
 
-        afficherBoiteDialogue(Alert.AlertType.INFORMATION, "Succès", "Mot de passe modifié avec succès.");
+        //afficherBoiteDialogue(Alert.AlertType.INFORMATION, "Succès", "Mot de passe modifié avec succès.");
     }
 
 
