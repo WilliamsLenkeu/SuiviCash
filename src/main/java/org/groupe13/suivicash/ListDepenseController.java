@@ -1,5 +1,7 @@
 package org.groupe13.suivicash;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,18 +14,17 @@ import javafx.fxml.FXML;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
-
-import static org.groupe13.suivicash.AjoutDepenseController.getIdCategorieByNom;
 
 public class ListDepenseController {
 
@@ -41,9 +42,9 @@ public class ListDepenseController {
     private TableView<Depense> depenseTableView;
 
     @FXML
-    private TableColumn<Depense, Double> montantCol;
+    private TableColumn<Depense, String> montantCol;
     @FXML
-    private TableColumn<Depense, Date> dateCol;
+    private TableColumn<Depense, String> dateCol;
     @FXML
     private TableColumn<Depense, String> descriptionCol;
     @FXML
@@ -52,8 +53,36 @@ public class ListDepenseController {
     public void initialize() {
         // Initialiser les colonnes avec les propriétés de la classe Depense
 
-        montantCol.setCellValueFactory(new PropertyValueFactory<>("montant"));
-        dateCol.setCellValueFactory(new PropertyValueFactory<>("dateDepense"));
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("EEE. dd MMMM yyyy", Locale.FRENCH);
+
+        montantCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Depense, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Depense, String> param) {
+                // Obtenez le montant de la dépense
+                double montant = param.getValue().getMontant();
+
+                // Formatez le montant en une chaîne avec le symbole XAF
+                String montantAvecXAF = String.format("%.2f XAF", montant);
+
+                // Retournez la chaîne formatée
+                return new SimpleStringProperty(montantAvecXAF);
+            }
+        });
+
+        dateCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Depense, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Depense, String> param) {
+                // Obtenez la date de la dépense
+                LocalDate date = param.getValue().getDateDepense().toLocalDate();
+
+                // Formatez la date en une chaîne dans le style "Lun. 02 Fevrier 2003"
+                String dateFormatee = dateFormatter.format(date);
+
+                // Retournez la chaîne formatée
+                return new SimpleStringProperty(dateFormatee);
+            }
+        });
+
         descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
         idBanqueCol.setCellValueFactory(new PropertyValueFactory<>("nomBanque"));
 
@@ -63,12 +92,9 @@ public class ListDepenseController {
             return new SimpleObjectProperty<>(deleteButton);
         });
 
-
-
-        Depense depense= new Depense();
-        MesDep= depense.getDepensesByCategorie(MaSuperGlobale.NomCategorie);
+        Depense depense = new Depense();
+        MesDep = depense.getDepensesByCategorie(MaSuperGlobale.NomCategorie);
         setDepenses(MesDep);
-
     }
 
     private void handleDeleteDepense(Depense depense) {
