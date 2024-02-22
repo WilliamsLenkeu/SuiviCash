@@ -126,6 +126,23 @@ public class AjoutDepenseController {
                     afficherBoiteDialogue(AlertType.ERROR, "Erreur", "Solde insuffisant dans la banque sélectionnée.");
                     return; // Sortir de la méthode si le solde est insuffisant
                 }
+                if(updateListViewWithFilteredData(numeroMois,annee)) {
+                    // Afficher une boîte de dialogue de confirmation
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Confirmation de suppression");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Votre limite de ce mois est atteinte. Êtes-vous sûr de vouloir continuer?");
+
+                    Optional<ButtonType> result = alert.showAndWait();
+
+                    if ( result.isPresent() && result.get() == ButtonType.OK ) {
+
+                    }else {
+                        return;
+                    }
+
+                }
+
 
                 // Insertion dans la base de données
                 String sqlInsert = "INSERT INTO depenses (Montant, DateDepense, Description, IDBanque, IDCategorie) VALUES (?, ?, ?, ?, ?)";
@@ -144,25 +161,6 @@ public class AjoutDepenseController {
                         ResultSet generatedKeys = statementInsert.getGeneratedKeys();
                         if (generatedKeys.next()) {
                             int idDepense = generatedKeys.getInt(1);
-                            if(updateListViewWithFilteredData(numeroMois,annee)) {
-                                // Afficher une boîte de dialogue de confirmation
-                                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                                alert.setTitle("Confirmation de suppression");
-                                alert.setHeaderText(null);
-                                alert.setContentText("Votre limite de ce mois est atteinte. Êtes-vous sûr de vouloir continuer?");
-
-                                Optional<ButtonType> result = alert.showAndWait();
-
-                                if (result.isPresent() && result.get() == ButtonType.OK) {
-                                    // Débiter le solde de la banque
-                                    debiterSoldeBanque(idBanque, montant);
-
-                                    // Afficher un message de succès
-                                    afficherBoiteDialogue(AlertType.INFORMATION, "Succès", "Dépense ajoutée avec succès. Le solde la banque choisie a ete debite avec succes rendez vous dans Banques pour voir le nouveau solde" );
-                                    return;
-                                }
-                                return;
-                            }
                             // Débiter le solde de la banque
                             debiterSoldeBanque(idBanque, montant);
 
@@ -249,9 +247,6 @@ public class AjoutDepenseController {
 
         // Récupérer la liste des catégories
         List<Categorie> categories = new Categorie().getAllCategories(annee, numeroMois);
-
-
-
 
         double total= 0.0;
         // Ajouter les catégories à la ListView en tant que boutons cliquables
