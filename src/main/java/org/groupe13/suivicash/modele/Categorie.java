@@ -55,7 +55,7 @@ public class Categorie {
                 total += depense.getMontant();
             }
         }
-        System.out.println(total);
+
         this.totalDepense = total;
     }
 
