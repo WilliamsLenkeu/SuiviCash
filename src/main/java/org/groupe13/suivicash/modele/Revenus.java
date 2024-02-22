@@ -4,6 +4,7 @@ import javafx.scene.control.Alert;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.sql.Date;
 
@@ -214,6 +215,67 @@ public class Revenus {
         alert.setHeaderText(null);
         alert.setContentText(contenu);
         alert.showAndWait();
+    }
+
+    // Méthode pour effectuer la répétition du revenu en créditant le solde de la banque correspondante
+    public void effectuerRepetitionRevenu() {
+        // Récupérer la liste des revenus
+        List<Revenus> revenusList = getRevenus();
+
+        // Récupérer la date actuelle
+        Calendar cal = Calendar.getInstance();
+        Date currentDate = new Date(cal.getTimeInMillis());
+
+        // Initialiser un indicateur pour savoir si au moins une répétition a été effectuée
+        boolean repetitionEffectuee = false;
+
+        // Parcourir la liste des revenus
+        for (Revenus revenus : revenusList) {
+            Date dateRevenu = revenus.getDateRevenu();
+            String typeRepetition = revenus.getTypeRepetition();
+            Integer periodeRepetition = revenus.getPeriodeRepetition();
+
+            // Calculer la différence de temps entre la date actuelle et la date du revenu
+            long differenceMillis = currentDate.getTime() - dateRevenu.getTime();
+            long differenceDays = differenceMillis / (24 * 60 * 60 * 1000); // Convertir en jours
+
+            // Vérifier si la période de répétition est écoulée par rapport à la date du revenu
+            boolean repetitionDue = false;
+            switch (typeRepetition) {
+                case "jour":
+                    repetitionDue = differenceDays >= periodeRepetition;
+                    break;
+                case "semaine":
+                    repetitionDue = differenceDays >= periodeRepetition * 7;
+                    break;
+                case "mois":
+                    repetitionDue = differenceDays >= periodeRepetition * 30; // Approximation de 30 jours par mois
+                    break;
+                case "année":
+                    repetitionDue = differenceDays >= periodeRepetition * 365; // Approximation de 365 jours par année
+                    break;
+            }
+
+            // Si la répétition est due, ajouter le revenu à nouveau
+            if (repetitionDue) {
+                double montant = revenus.getMontant();
+                String description = revenus.getDescription();
+                String nomBanque = revenus.getNomBanque();
+
+                // Ajouter le revenu à nouveau en créditant le solde de la banque correspondante
+                ajouterRevenu(montant, currentDate, description, nomBanque, typeRepetition, periodeRepetition);
+
+                // Indiquer qu'au moins une répétition a été effectuée
+                repetitionEffectuee = true;
+            }
+        }
+
+        // Afficher un message d'alerte en fonction de si une répétition a été effectuée ou non
+        if (repetitionEffectuee) {
+            afficherInformation("Répétitions effectuées", "Une ou plusieurs répétitions ont été effectuées.");
+        } else {
+            afficherInformation("Aucune répétition effectuée", "Aucune répétition n'a été effectuée.");
+        }
     }
 
     // Méthode pour afficher une alerte d'information

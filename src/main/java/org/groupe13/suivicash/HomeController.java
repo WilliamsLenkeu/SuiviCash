@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import org.groupe13.suivicash.modele.*;
 
 import java.io.IOException;
 
@@ -18,6 +19,9 @@ public class HomeController {
     private void initialize() {
         // Chargement de la vue Depense par défaut
         loadView("vues/DepenseView.fxml");
+
+        // Appel de la méthode pour effectuer les répétitions de revenus
+        effectuerRepetitionRevenu();
     }
 
     @FXML
@@ -78,4 +82,9 @@ public class HomeController {
         }
     }
 
+    // Méthode pour effectuer les répétitions de revenus
+    private void effectuerRepetitionRevenu() {
+        Revenus revenus = new Revenus();
+        revenus.effectuerRepetitionRevenu();
+    }
 }
