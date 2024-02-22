@@ -62,31 +62,23 @@ public class RevenuController {
     /*test*/
 
     private void handleDeleteRevenus(Revenus revenus) {
-        try {
-            // Afficher une boîte de dialogue de confirmation
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmation de suppression");
-            alert.setHeaderText(null);
-            alert.setContentText("Êtes-vous sûr de vouloir supprimez ce revenu?");
+        // Afficher une boîte de dialogue de confirmation
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation de suppression");
+        alert.setHeaderText(null);
+        alert.setContentText("Êtes-vous sûr de vouloir supprimez ce revenu?");
 
-            Optional<ButtonType> result = alert.showAndWait();
+        Optional<ButtonType> result = alert.showAndWait();
 
-            if (result.isPresent() && result.get() == ButtonType.OK) {
-                // L'utilisateur a cliqué sur OK, supprimer la ligne de la table revenus correspondante
-                revenusTableView.getItems().remove(revenus);
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            // L'utilisateur a cliqué sur OK, supprimer la ligne de la table revenus correspondante
+            revenusTableView.getItems().remove(revenus);
 
-                // Supprimer le revenu de la base de données
-                revenus.deleteRevenus();
+            // Supprimer le revenu de la base de données
+            revenus.deleteRevenus();
 
-                // débiter le solde de la banque
-                int idBanque = revenus.getIdBanque(revenus.getNomBanque());
-                double montant = revenus.getMontant();
-                debiterSoldeBanque(idBanque, montant);
-            }
-            // Sinon, ne rien faire
-        } catch (SQLException e) {
-            afficherBoiteDialogue(Alert.AlertType.ERROR, "Erreur", "Erreur lors de la suppression du revenu : " + e.getMessage());
         }
+        // Sinon, ne rien faire
     }
 
     public void debiterSoldeBanque(int idBanque, double montant) throws SQLException {

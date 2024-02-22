@@ -4,6 +4,7 @@ module org.groupe13.suivicash {
 
 
     requires java.sql;
+    requires java.mail;
 
     opens org.groupe13.suivicash to javafx.fxml;
     exports org.groupe13.suivicash;
