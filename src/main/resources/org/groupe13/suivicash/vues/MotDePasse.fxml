@@ -1,36 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.groupe13.suivicash.MotDePasseController"
-            prefHeight="400.0" prefWidth="600.0">
-    <!-- Contenu de l'AnchorPane -->
-    <VBox spacing="10" alignment="CENTER">
+<AnchorPane prefHeight="518.0" prefWidth="806.0" style="-fx-background-color: #f0f0f0;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.groupe13.suivicash.MotDePasseController">
 
+    <VBox alignment="CENTER" prefHeight="518.0" prefWidth="806.0" spacing="20" style="-fx-background-color: #ffffff; -fx-padding: 20; -fx-border-radius: 10; -fx-background-radius: 10;">
 
         <!-- Formulaire pour Ajouter Mot de Passe -->
-        <VBox fx:id="ajoutForm" visible="true" alignment="CENTER" spacing="5">
-            <Label text="Ajouter Mot de Passe" />
-            <PasswordField fx:id="newPasswordInput" promptText="Nouveau Mot de Passe" />
-            <PasswordField fx:id="confirmPasswordInput" promptText="Confirmer le Mot de Passe" />
+        <VBox fx:id="ajoutForm" alignment="CENTER" spacing="10" visible="true">
+            <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Ajouter Mot de Passe" />
+            <PasswordField fx:id="newPasswordInput" promptText="Nouveau Mot de Passe" style="-fx-pref-width: 200; -fx-font-size: 14px;" />
+            <PasswordField fx:id="confirmPasswordInput" promptText="Confirmer le Mot de Passe" style="-fx-pref-width: 200; -fx-font-size: 14px;" />
 
-            <Button text="Ajouter" onAction="#ajouterMotDePasse" />
+            <Button onAction="#ajouterMotDePasse" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 8 16;" text="Ajouter" />
         </VBox>
 
         <!-- Formulaire pour Changer Mot de Passe -->
-        <VBox fx:id="changerForm" visible="false" alignment="CENTER" spacing="5">
-            <Label text="Changer Mot de Passe" />
-            <PasswordField promptText="Ancien Mot de Passe"  />
-            <PasswordField promptText="Nouveau Mot de Passe" />
-            <PasswordField promptText="Confirmer le Nouveau Mot de Passe" />
-            <Button text="Supprimer" onAction="#SupprimerMotDePasse" />
-            <Button text="Changer" onAction="#changerMotDePasse" />
+        <VBox fx:id="changerForm" alignment="CENTER" spacing="10" visible="false">
+            <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Changer Mot de Passe" />
+            <PasswordField promptText="Ancien Mot de Passe" style="-fx-pref-width: 200; -fx-font-size: 14px;" />
+            <PasswordField promptText="Nouveau Mot de Passe" style="-fx-pref-width: 200; -fx-font-size: 14px;" />
+            <PasswordField promptText="Confirmer le Nouveau Mot de Passe" style="-fx-pref-width: 200; -fx-font-size: 14px;" />
+            <StackPane style="-fx-margin-top: 10;">
+                <Button onAction="#SupprimerMotDePasse" style="-fx-background-color: #f44336; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 8 16;" text="Supprimer" />
+                <Button onAction="#changerMotDePasse" style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 8 16; -fx-margin-left: 10;" text="Changer" />
+            </StackPane>
         </VBox>
     </VBox>
 </AnchorPane>

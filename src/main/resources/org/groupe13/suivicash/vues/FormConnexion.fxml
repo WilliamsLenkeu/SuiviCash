@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.groupe13.suivicash.FormConnexionController"
+            prefHeight="400.0" prefWidth="600.0">
+    <VBox alignment="CENTER" spacing="10">
+        <!-- Formulaire pour Entrer Mot de Passe -->
+        <VBox fx:id="passwordForm" alignment="CENTER" spacing="5" visible="true">
+            <Label text="Entrez votre mot de passe" />
+            <PasswordField fx:id="passwordField" promptText="Mot de Passe" />
+            <!-- Ajoutez d'autres éléments au besoin -->
+            <Button onAction="#validerMotDePasse" text="Valider" />
+        </VBox>
+    </VBox>
+</AnchorPane>
