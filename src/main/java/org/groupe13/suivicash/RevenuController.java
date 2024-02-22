@@ -59,6 +59,7 @@ public class RevenuController {
         List<Revenus> listeRevenus = revenus.getRevenus();
         setRevenus(listeRevenus);
     }
+    /*test*/
 
     private void handleDeleteRevenus(Revenus revenus) {
         try {
