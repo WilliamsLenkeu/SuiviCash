@@ -8,6 +8,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -31,20 +32,17 @@ public class DepenseController {
     public ListView CategorieListView;
     public BorderPane Categorie;
     public Button AjouterCategorieButton;
+    public VBox MonVbox;
 
     public  void RendreVisibile(int i){
         if(i==0){
-            CategorieListView.setVisible(true);
-            CategorieListView.setManaged(true);
-            AjouterCategorieButton.setVisible(true);
-            AjouterCategorieButton.setManaged(true);
+            MonVbox.setVisible(true);
+            MonVbox.setManaged(true);
             Categorie.setVisible(false);
             Categorie.setManaged(false);
         }else{
-            CategorieListView.setVisible(false);
-            CategorieListView.setManaged(false);
-            AjouterCategorieButton.setVisible(false);
-            AjouterCategorieButton.setManaged(false);
+            MonVbox.setVisible(false);
+            MonVbox.setManaged(false);
             Categorie.setVisible(true);
             Categorie.setManaged(true);
         }

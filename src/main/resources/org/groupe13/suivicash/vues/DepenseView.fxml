@@ -14,9 +14,11 @@
         <Insets bottom="20" left="20" right="20" top="20" />
     </padding>
     <children>
-        <Button fx:id="AjouterCategorieButton" managed="false" onAction="#handleAjouterCategorieClick"
+        <VBox fx:id="MonVbox">
+        <Button fx:id="AjouterCategorieButton"  onAction="#handleAjouterCategorieClick"
                 prefHeight="40.0" prefWidth="200.0" text="Ajouter Catégorie"/>
         <ListView fx:id="CategorieListView" prefHeight="800.0" prefWidth="766.0" />
+        </VBox>
         <BorderPane fx:id="Categorie" prefHeight="458.0" prefWidth="586.0">
             <center>
                 <AnchorPane fx:id="mainContent" />
