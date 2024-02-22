@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 
 import java.io.IOException;
@@ -34,6 +35,10 @@ public class HomeController {
         loadView("vues/RevenuView.fxml");
     }
 
+
+    public void handleSecuriteButtonClick(ActionEvent actionEvent) {
+        loadView("vues/MotDePasseView.fxml");
+    }
     private void loadDashboard() {
         loadView("vues/DashboardView.fxml");
     }
@@ -56,6 +61,9 @@ public class HomeController {
                 case "vues/RevenuView.fxml":
                     controller = new RevenuController();
                     break;
+                case "vues/MotDePasse.fxml":
+                    controller = new MotDePasseController();
+                    break;
                 default:
 
                     break;
@@ -69,4 +77,5 @@ public class HomeController {
             e.printStackTrace();
         }
     }
+
 }

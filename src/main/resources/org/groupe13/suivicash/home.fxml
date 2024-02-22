@@ -46,6 +46,7 @@
                            </font></Button>
                                 <Button fx:id="RevenuButton" mnemonicParsing="false" onAction="#handleRevenuButtonClick" prefWidth="120.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 12; -fx-padding: 10px 10px;" text="Revenus" />
                                 <Button fx:id="BanqueButton" mnemonicParsing="false" onAction="#handleDashboardButtonClick" prefWidth="120.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 12px; -fx-padding: 10px 10px;" text="Banques" />
+                                <Button fx:id="SecuriteButton" mnemonicParsing="false" onAction="#handleSecuriteButtonClick" prefWidth="120.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 12px; -fx-padding: 10px 10px;" text="Securite" />
                             </children>
                             <padding>
                                 <Insets top="10.0" />

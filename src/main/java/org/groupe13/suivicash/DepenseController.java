@@ -326,7 +326,8 @@ public class DepenseController {
 
         // Récupérer la liste des limites depuis la base de données
         limites = limiteDepense.getLimites();
-
+        /*Avertissement.setVisible(false);
+        Avertissement.setManaged(false);*/
         // Vérifier si des limites existent
         if (!(limites).isEmpty()) {
             if(limites.get(0).getLimite()<total){
