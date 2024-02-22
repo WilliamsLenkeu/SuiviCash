@@ -39,6 +39,7 @@
             <Insets right="10.0" />
         </padding>
     </HBox>
+    <!-- test -->
     <TableView fx:id="banqueTableView" prefHeight="200.0" prefWidth="200.0">
         <columns>
             <TableColumn prefWidth="150" text="Nom Banque">
@@ -47,6 +48,7 @@
             <TableColumn prefWidth="100" text="Solde (XAF)">
                 <cellValueFactory><PropertyValueFactory property="solde" /></cellValueFactory>
             </TableColumn>
+            <TableColumn fx:id="deleteCol" prefWidth="156.0" text="Supprimer" />
         </columns>
     </TableView>
     <Label style="-fx-font-size: 14px;" text="Total des soldes des banques: " />

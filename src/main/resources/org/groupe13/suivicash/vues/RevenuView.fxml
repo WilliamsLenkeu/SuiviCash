@@ -17,6 +17,9 @@
             <TableColumn fx:id="dateCol" prefWidth="100.0" text="Date" />
             <TableColumn fx:id="descriptionCol" prefWidth="250.0" text="Description" />
             <TableColumn fx:id="nomBanqueCol" prefWidth="150.0" text="Nom Banque" />
+
+            <TableColumn fx:id="deleteCol" prefWidth="156.0" text="Supprimer" />
+            <!--test-->
         </columns>
     </TableView>
 

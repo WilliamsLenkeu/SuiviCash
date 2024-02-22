@@ -15,6 +15,8 @@ public class Banque {
         this.solde = solde;
     }
 
+    // Getters et setters
+
     public int getIDBanque() {
         return IDBanque;
     }
@@ -50,6 +52,28 @@ public class Banque {
         }
         return banques;
     }
+
+    public static void deleteBanque(Connection connection, int IDBanque) throws SQLException {
+        // Suppression des dépenses associées à la banque
+        PreparedStatement deleteDepensesStatement = connection.prepareStatement("DELETE FROM depenses WHERE IDBanque = ?");
+        deleteDepensesStatement.setInt(1, IDBanque);
+        deleteDepensesStatement.executeUpdate();
+        deleteDepensesStatement.close();
+
+        // Suppression des revenus associés à la banque
+        PreparedStatement deleteRevenusStatement = connection.prepareStatement("DELETE FROM revenus WHERE IDBanque = ?");
+        deleteRevenusStatement.setInt(1, IDBanque);
+        deleteRevenusStatement.executeUpdate();
+        deleteRevenusStatement.close();
+
+        // Suppression de la banque
+        PreparedStatement deleteBanqueStatement = connection.prepareStatement("DELETE FROM banques WHERE IDBanque = ?");
+        deleteBanqueStatement.setInt(1, IDBanque);
+        deleteBanqueStatement.executeUpdate();
+        deleteBanqueStatement.close();
+    }
+
+    /*test*/
 
     // Méthode pour récupérer le solde total de toutes les banques depuis la base de données
     public static double getTotalSolde(Connection connection) {
