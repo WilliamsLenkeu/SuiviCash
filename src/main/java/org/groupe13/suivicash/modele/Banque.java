@@ -73,6 +73,8 @@ public class Banque {
         deleteBanqueStatement.close();
     }
 
+    /*test*/
+
     // Méthode pour récupérer le solde total de toutes les banques depuis la base de données
     public static double getTotalSolde(Connection connection) {
         double totalSolde = 0;

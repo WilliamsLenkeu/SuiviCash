@@ -82,7 +82,7 @@ public class DashboardController {
         ButtonType buttonTypeNo = new ButtonType("Non", ButtonBar.ButtonData.CANCEL_CLOSE);
 
         alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
-
+        /*test*/
         alert.showAndWait().ifPresent(buttonType -> {
             if (buttonType == buttonTypeYes) {
                 // Suppression de la banque

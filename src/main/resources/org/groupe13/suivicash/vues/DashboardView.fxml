@@ -39,6 +39,7 @@
             <Insets right="10.0" />
         </padding>
     </HBox>
+    <!-- test -->
     <TableView fx:id="banqueTableView" prefHeight="200.0" prefWidth="200.0">
         <columns>
             <TableColumn prefWidth="150" text="Nom Banque">
