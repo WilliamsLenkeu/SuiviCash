@@ -91,42 +91,6 @@ public class connectionFile {
     private static void afficherBoiteDialogueInformation(String s) {
     }
 
-    // Méthode pour récupérer toutes les catégories de la base de données
-    public static List<String> recupererNomCategories() {
-        List<String> categories = new ArrayList<>();
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-
-        try {
-            // Établir la connexion à la base de données
-            connection = getConnection();
-
-            // Requête SQL pour récupérer toutes les catégories
-            String sql = "SELECT NomCategorie FROM categories";
-
-            // Préparer la déclaration
-            preparedStatement = connection.prepareStatement(sql);
-
-            // Exécuter la requête
-            resultSet = preparedStatement.executeQuery();
-
-            // Parcourir les résultats et ajouter les catégories à la liste
-            while (resultSet.next()) {
-                String nomCategorie = resultSet.getString("NomCategorie");
-                categories.add(nomCategorie);
-            }
-        } catch (SQLException e) {
-            System.out.println("Erreur lors de la récupération des catégories : " + e.getMessage());
-        } finally {
-            // Fermer la connexion, la déclaration et le résultat
-            closeConnection(connection);
-            closeStatement(preparedStatement);
-            closeResultSet(resultSet);
-        }
-
-        return categories;
-    }
 
     // Méthode pour fermer la déclaration
     public static void closeStatement(PreparedStatement statement) {

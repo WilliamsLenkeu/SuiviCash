@@ -83,6 +83,7 @@ public class Depense {
         this.idBanque = idBanque;
     }
 
+    public int getIdCategorie(){return idCategorie;}
 
     public void setIdCategorie(int idCategorie) {
         this.idCategorie = idCategorie;
@@ -161,6 +162,35 @@ public class Depense {
         } catch (SQLException e) {
             System.out.println("Erreur lors de la suppression de la dépense de la base de données : " + e.getMessage());
         }
+    }
+
+    // Méthode pour récupérer toutes les dépenses depuis la base de données
+    public List<Depense> getAllDepenses() {
+        List<Depense> depenses = new ArrayList<>();
+
+        connectionFile ConnectionFile = null;
+        try (Connection connection = ConnectionFile.getConnection()) {
+            String sql = "SELECT `IDDepense`, `Montant`, `DateDepense` , `Description`,`depenses`.`IDBanque`, `IDCategorie`,`NomBanque` FROM `depenses` JOIN banques ON `depenses`.IDBanque = banques.IDBanque";
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                ResultSet resultSet = statement.executeQuery();
+
+                while (resultSet.next()) {
+                    int idDepense = resultSet.getInt("IDDepense");
+                    double montant = resultSet.getDouble("Montant");
+                    Date dateDepense = resultSet.getDate("DateDepense");
+                    String description = resultSet.getString("Description");
+                    int idBanque = resultSet.getInt("IDBanque");
+                    int idCategorie = resultSet.getInt("IDCategorie");
+                    String nomBanque= resultSet.getString("NomBanque");
+                    Depense depense = new Depense(idDepense, montant, dateDepense, description, idBanque, idCategorie,nomBanque);
+                    depenses.add(depense);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return depenses;
     }
 
 }

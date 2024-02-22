@@ -1,5 +1,6 @@
 package org.groupe13.suivicash;
 
+import org.groupe13.suivicash.modele.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -77,12 +78,18 @@ public class DepenseController {
     @FXML
     private void initialize() {
         // Récupérer la liste des catégories
-        List<String> categories = recuperation();
+        List<Categorie> categories = new Categorie().getAllCategories();
         RendreVisibile(0);
+        // Récupérer la liste des dépenses
+        Depense depense = new Depense();
+
+
         // Ajouter les catégories à la ListView en tant que boutons cliquables
-        for (String category : categories) {
-            Button categoryButton = new Button(category);
-            categoryButton.setOnAction(event -> handleCategoryButtonClick(category));
+        for (Categorie category : categories) {
+            double totalDepense = category.getTotalDepense();
+            String displayText = category.getNomCategorie() + " - Total Dépense : " + totalDepense;
+            Button categoryButton = new Button(displayText);
+            categoryButton.setOnAction(event -> handleCategoryButtonClick(category.getNomCategorie()));
             CategorieListView.getItems().add(categoryButton);
         }
     }
@@ -108,7 +115,6 @@ public class DepenseController {
 
     private void handleCategoryButtonClick(String categoryName) {
         MaSuperGlobale.NomCategorie= categoryName;
-        System.out.println(categoryName);
         chargerNouveauContenuAvecInfos(categoryName);
         RendreVisibile(1);
 
