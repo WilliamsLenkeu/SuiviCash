@@ -2,7 +2,7 @@ module org.groupe13.suivicash {
     requires javafx.controls;
     requires javafx.fxml;
 
-
+    
     requires java.sql;
 
     opens org.groupe13.suivicash to javafx.fxml;
