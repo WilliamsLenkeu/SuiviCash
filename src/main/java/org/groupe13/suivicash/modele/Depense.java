@@ -33,14 +33,14 @@ public class Depense {
     }
 
     // Getters et setters
-
-    public String getnomBanque() {
+    public String getNomBanque() {
         return nomBanque;
     }
 
-    public void setnomBanque(String nomBanque) {
+    public void setNomBanque(String nomBanque) {
         this.nomBanque = nomBanque;
     }
+
 
 
     public int getIdDepense() {
@@ -99,7 +99,7 @@ public class Depense {
             int idCategorie = getIdCategorieByNom(categorieNom, connection);
 
             // Effectuez une requête SQL pour récupérer les dépenses en fonction de l'ID de la catégorie
-            String sql = "SELECT `IDDepense`, `Montant`, `DateDepense` , `Description`, `IDBanque`, `IDCategorie` FROM `depenses` WHERE `IDCategorie` = ?";
+            String sql = "SELECT `IDDepense`, `Montant`, `DateDepense` , `Description`,`depenses`.`IDBanque`, `IDCategorie`,`NomBanque` FROM `depenses` JOIN banques ON `depenses`.IDBanque = banques.IDBanque WHERE `IDCategorie` = ?";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setInt(1, idCategorie);
 
@@ -110,7 +110,7 @@ public class Depense {
                     depense.setIdDepense(resultSet.getInt("IDDepense"));
                     depense.setMontant(resultSet.getDouble("Montant"));
                     depense.setDateDepense(resultSet.getDate("DateDepense"));
-                    depense.setnomBanque(getBankNameById(resultSet.getInt("IDBanque")));
+                    depense.setNomBanque(resultSet.getString("NomBanque"));
                     depense.setDescription(resultSet.getString("Description"));
                     depense.setIdBanque(resultSet.getInt("IDBanque"));
                     depense.setIdCategorie(resultSet.getInt("IDCategorie"));
@@ -124,29 +124,6 @@ public class Depense {
         return depenses;
     }
 
-    // Méthode pour obtenir le nom de la banque à partir de l'ID
-    public String getBankNameById(int idBanque) {
-        String bankName = null;
-        String query = "SELECT NomBanque FROM banques WHERE IDBanque = ?";
-
-        try (Connection connection = connectionFile.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-
-            preparedStatement.setInt(1, idBanque);
-
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
-                    bankName = resultSet.getString("NomBanque");
-                }
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // Gérer l'exception selon vos besoins
-        }
-
-        return bankName;
-    }
 
     // Méthode utilitaire pour obtenir l'ID de la catégorie en fonction du nom
     private static int getIdCategorieByNom(String categorieNom, Connection connection) throws SQLException {
@@ -164,6 +141,26 @@ public class Depense {
         }
 
         return idCategorie;
+    }
+
+    public void deleteDepense() {
+        try {
+            Connection connection = connectionFile.getConnection();
+            String sql = "DELETE FROM depenses WHERE IDDepense = ?";
+
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setInt(1, this.idDepense);
+                int rowsAffected = statement.executeUpdate();
+
+                if (rowsAffected > 0) {
+                    System.out.println("Dépense supprimée avec succès de la base de données.");
+                } else {
+                    System.out.println("Échec de la suppression de la dépense de la base de données.");
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la suppression de la dépense de la base de données : " + e.getMessage());
+        }
     }
 
 }

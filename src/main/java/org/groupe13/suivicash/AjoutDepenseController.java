@@ -8,10 +8,11 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import org.groupe13.suivicash.modele.connectionFile;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+
+
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -83,15 +84,31 @@ public class AjoutDepenseController {
         return idCategorie;
     }
 
+
+
+    // ... autres imports ...
+
     public void HandleAjouterDepense(ActionEvent actionEvent) {
         // Récupérer les valeurs des champs
         LocalDate date = datePicker.getValue();
-        String montant = montantField.getText();
+        String montantStr = montantField.getText();
         String description = descriptionField.getText(); // La description peut être vide
 
+        // Vérifier si le montant est un nombre valide
+        if (!isMontantValide(montantStr)) {
+            afficherBoiteDialogue(AlertType.ERROR, "Erreur", "Veuillez entrer un montant valide.");
+            return;
+        }
+
         // Vérifier si tous les champs obligatoires sont renseignés
-        if (date != null && !montant.isEmpty()) {
+        if (date != null && !montantStr.isEmpty()) {
             try {
+                // Vérifier si une banque est sélectionnée
+                if (banqueChoiceBox.getSelectionModel().isEmpty()) {
+                    afficherBoiteDialogue(AlertType.ERROR, "Erreur", "Veuillez choisir une banque.");
+                    return; // Sortir de la méthode si la banque n'est pas sélectionnée
+                }
+
                 // Récupérer l'ID de la banque sélectionnée
                 String nomBanque = banqueChoiceBox.getSelectionModel().getSelectedItem().toString();
                 int idBanque = getIdBanque(nomBanque);
@@ -99,31 +116,97 @@ public class AjoutDepenseController {
                 // Récupérer l'ID de la catégorie
                 int idCategorie = getIdCategorieByNom(NomCategorie, connection);
 
-                // Insertion dans la base de données
-                String sql = "INSERT INTO depenses (Montant, DateDepense, Description, IDBanque, IDCategorie) VALUES (?, ?, ?, ?, ?)";
-                try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                    statement.setString(1, montant);
-                    statement.setObject(2, date);
-                    statement.setString(3, description);
-                    statement.setInt(4, idBanque);
-                    statement.setInt(5, idCategorie);
+                // Convertir le montant en double
+                double montant = Double.parseDouble(montantStr);
 
-                    // Exécuter la requête
-                    int rowsAffected = statement.executeUpdate();
+                // Vérifier si le solde de la banque est suffisant
+                double soldeBanque = getSoldeBanque(idBanque);
+                if (soldeBanque < montant) {
+                    afficherBoiteDialogue(AlertType.ERROR, "Erreur", "Solde insuffisant dans la banque sélectionnée.");
+                    return; // Sortir de la méthode si le solde est insuffisant
+                }
+
+                // Insertion dans la base de données
+                String sqlInsert = "INSERT INTO depenses (Montant, DateDepense, Description, IDBanque, IDCategorie) VALUES (?, ?, ?, ?, ?)";
+                try (PreparedStatement statementInsert = connection.prepareStatement(sqlInsert, Statement.RETURN_GENERATED_KEYS)) {
+                    statementInsert.setDouble(1, montant);
+                    statementInsert.setObject(2, date);
+                    statementInsert.setString(3, description);
+                    statementInsert.setInt(4, idBanque);
+                    statementInsert.setInt(5, idCategorie);
+
+                    // Exécuter la requête d'insertion
+                    int rowsAffected = statementInsert.executeUpdate();
 
                     if (rowsAffected > 0) {
-                        System.out.println("Dépense ajoutée avec succès.");
+                        // Récupérer l'ID de la dépense insérée
+                        ResultSet generatedKeys = statementInsert.getGeneratedKeys();
+                        if (generatedKeys.next()) {
+                            int idDepense = generatedKeys.getInt(1);
+
+                            // Débiter le solde de la banque
+                            debiterSoldeBanque(idBanque, montant);
+
+                            // Afficher un message de succès
+                            afficherBoiteDialogue(AlertType.INFORMATION, "Succès", "Dépense ajoutée avec succès. ID de dépense : " + idDepense);
+                        } else {
+                            afficherBoiteDialogue(AlertType.ERROR, "Erreur", "Échec de l'obtention de l'ID de la dépense.");
+                        }
                     } else {
-                        System.out.println("Échec de l'ajout de la dépense.");
+                        afficherBoiteDialogue(AlertType.ERROR, "Erreur", "Échec de l'ajout de la dépense.");
                     }
                 }
+            } catch (NumberFormatException e) {
+                afficherBoiteDialogue(AlertType.ERROR, "Erreur", "Veuillez entrer un montant valide.");
             } catch (SQLException e) {
-                System.out.println("Erreur lors de l'ajout de la dépense dans la base de données : " + e.getMessage());
+                afficherBoiteDialogue(AlertType.ERROR, "Erreur", "Erreur lors de l'ajout de la dépense dans la base de données : " + e.getMessage());
             }
         } else {
             // Afficher un message d'erreur indiquant que tous les champs obligatoires doivent être remplis
-            System.out.println("Veuillez remplir tous les champs obligatoires.");
+            afficherBoiteDialogue(AlertType.ERROR, "Erreur", "Veuillez remplir tous les champs obligatoires.");
         }
+    }
+
+    // Méthode pour vérifier si le montant est un nombre valide
+    private boolean isMontantValide(String montantStr) {
+        try {
+            Double.parseDouble(montantStr);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    // Méthode pour débiter le solde de la banque
+    private void debiterSoldeBanque(int idBanque, double montant) throws SQLException {
+        String sqlUpdate = "UPDATE banques SET Solde = Solde - ? WHERE IDBanque = ?";
+        try (PreparedStatement statementUpdate = connection.prepareStatement(sqlUpdate)) {
+            statementUpdate.setDouble(1, montant);
+            statementUpdate.setInt(2, idBanque);
+            statementUpdate.executeUpdate();
+        }
+    }
+
+    // Méthode pour obtenir le solde de la banque
+    private double getSoldeBanque(int idBanque) throws SQLException {
+        double solde = 0.0;
+        String sqlSelect = "SELECT Solde FROM banques WHERE IDBanque = ?";
+        try (PreparedStatement statementSelect = connection.prepareStatement(sqlSelect)) {
+            statementSelect.setInt(1, idBanque);
+            ResultSet resultSet = statementSelect.executeQuery();
+            if (resultSet.next()) {
+                solde = resultSet.getDouble("Solde");
+            }
+        }
+        return solde;
+    }
+
+    private void afficherBoiteDialogue(AlertType type, String titre, String contenu) {
+        Alert alert = new Alert(type);
+        alert.setTitle(titre);
+        alert.setHeaderText(null);
+        alert.setContentText(contenu);
+        alert.showAndWait();
     }
 
     private List<String> getNomsBanquesFromDB() {

@@ -3,15 +3,12 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
+import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import  org.groupe13.suivicash.modele.*;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import javafx.event.ActionEvent;
@@ -24,6 +21,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import static org.groupe13.suivicash.AjoutDepenseController.getIdCategorieByNom;
 
@@ -57,12 +55,10 @@ public class ListDepenseController {
         montantCol.setCellValueFactory(new PropertyValueFactory<>("montant"));
         dateCol.setCellValueFactory(new PropertyValueFactory<>("dateDepense"));
         descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
-// Mettez à jour les références à 'nomBanque' avec 'nomBanque3'
         idBanqueCol.setCellValueFactory(new PropertyValueFactory<>("nomBanque"));
 
-
         deleteCol.setCellValueFactory(param -> {
-            Button deleteButton = new Button("Delete");
+            Button deleteButton = new Button("Supprimer");
             deleteButton.setOnAction(event -> handleDeleteDepense(param.getValue()));
             return new SimpleObjectProperty<>(deleteButton);
         });
@@ -76,12 +72,29 @@ public class ListDepenseController {
     }
 
     private void handleDeleteDepense(Depense depense) {
-        // Perform the delete operation for the selected expense
-        // You can use depense.getIdDepense() to get the ID of the expense and delete it from the database
+        // Afficher une boîte de dialogue de confirmation
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation de suppression");
+        alert.setHeaderText(null);
+        alert.setContentText("Si vous supprimez cette dépense, le solde de votre banque sera restauré. Êtes-vous sûr de vouloir continuer?");
 
-        // Refresh the depenseTableView by removing the deleted expense
-        depenseTableView.getItems().remove(depense);
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            // L'utilisateur a cliqué sur OK, supprimer la ligne de la table depense correspondante
+            depenseTableView.getItems().remove(depense);
+
+            // Supprimer la dépense de la base de données
+            depense.deleteDepense();
+
+            // Restaurer le solde de la banque
+            int idBanque = depense.getIdBanque();
+            double montant = depense.getMontant();
+            crediterSoldeBanque(idBanque, montant);
+        }
+        // Sinon, ne rien faire
     }
+
 
     public void setDepenses(List<Depense> depenses) {
         // Vérifier si depenseTableView est initialisé
@@ -137,20 +150,6 @@ public class ListDepenseController {
         Depense depense= new Depense();
         Maliste=depense.getDepensesByCategorie(MaSuperGlobale.NomCategorie);
 
-        // Imprime les informations de chaque dépense
-        for (Depense d : Maliste) {
-            System.out.println("ID: " + d.getIdDepense());
-            System.out.println("Montant: " + d.getMontant());
-            System.out.println("Date: " + d.getDateDepense());
-            System.out.println("Description: " + d.getDescription());
-            System.out.println("ID Banque: " + d.getnomBanque());
-
-            System.out.println("=========================");
-        }
-
-
-
-
     }
 
     public void handleAjouterDepenseClick(ActionEvent actionEvent) {
@@ -182,58 +181,37 @@ public class ListDepenseController {
         }
     }
 
+    public void crediterSoldeBanque(int idBanque, double montant) {
+        try {
+            Connection connection = connectionFile.getConnection();
+            String sql = "UPDATE banques SET Solde = Solde + ? WHERE IDBanque = ?";
 
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setDouble(1, montant);
+                statement.setInt(2, idBanque);
+                int rowsAffected = statement.executeUpdate();
+
+                if (rowsAffected > 0) {
+                    afficherBoiteDialogue(Alert.AlertType.INFORMATION, "Succès", "Solde de la banque mis à jour avec succès.");
+                } else {
+                    afficherBoiteDialogue(Alert.AlertType.ERROR, "Erreur", "Échec de la mise à jour du solde de la banque.");
+                }
+            }
+        } catch (SQLException e) {
+            afficherBoiteDialogue(Alert.AlertType.ERROR, "Erreur", "Erreur lors de la mise à jour du solde de la banque : " + e.getMessage());
+        }
+    }
+
+    private void afficherBoiteDialogue(Alert.AlertType type, String titre, String contenu) {
+        Alert alert = new Alert(type);
+        alert.setTitle(titre);
+        alert.setHeaderText(null);
+        alert.setContentText(contenu);
+        alert.showAndWait();
+    }
 
 
     public void setStage(Stage stage) {
         this.stage = stage;
     }
 }
-/*idBanqueCol.setCellValueFactory(new PropertyValueFactory<>("idBanque"));
-idBanqueCol.setCellFactory(new Callback<>() {
-    @Override
-    public TableCell<Depense, String> call(TableColumn<Depense, String> param) {
-        return new TableCell<>() {
-            @Override
-            protected void updateItem(String idBanque, boolean empty) {
-                super.updateItem(idBanque, empty);
-
-                if (empty || idBanque == null) {
-                    setText(null);
-                } else {
-                    // Convertir la chaîne en entier
-                    int idBanqueInt = Integer.parseInt(idBanque);
-
-                    // Obtenir le nom de la banque en fonction de l'ID
-                    String bankName = getBankNameById(idBanqueInt);
-
-                    setText(bankName);
-                }
-            }
-        };
-    }
-});
-
-// Méthode pour obtenir le nom de la banque à partir de l'ID
-public String getBankNameById(int idBanque) {
-    String bankName = null;
-    String query = "SELECT NomBanque FROM banques WHERE IDBanque = ?";
-
-    try (Connection connection = connectionFile.getConnection();
-         PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-
-        preparedStatement.setInt(1, idBanque);
-
-        try (ResultSet resultSet = preparedStatement.executeQuery()) {
-            if (resultSet.next()) {
-                bankName = resultSet.getString("NomBanque");
-            }
-        }
-
-    } catch (SQLException e) {
-        e.printStackTrace();
-        // Gérer l'exception selon vos besoins
-    }
-
-    return bankName;
-}*/
