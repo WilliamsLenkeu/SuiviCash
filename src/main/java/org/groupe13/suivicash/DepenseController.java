@@ -4,11 +4,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.groupe13.suivicash.modele.Depense;
+import org.groupe13.suivicash.modele.LimiteDepense;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -33,11 +32,39 @@ public class DepenseController {
     public BorderPane Categorie;
     public Button AjouterCategorieButton;
     public VBox MonVbox;
+    public Text MaLimite;
+
+    public Button ChangerLimiteButton;
+    public HBox AjouterLimite;
+    public Button AjouterLimiteButton;
+    public HBox LimiteChanger;
+    public Button SupprimerLimiteButton;
 
     public  void RendreVisibile(int i){
         if(i==0){
             MonVbox.setVisible(true);
             MonVbox.setManaged(true);
+            List<LimiteDepense> limites;
+
+            // Initialiser la classe LimiteDepense
+            LimiteDepense limiteDepense = new LimiteDepense();
+
+            // Récupérer la liste des limites depuis la base de données
+            limites = limiteDepense.getLimites();
+
+            // Vérifier si des limites existent
+            if (!((List<?>) limites).isEmpty()) {
+                AjouterLimite.setVisible(false);
+                AjouterLimite.setManaged(false);
+                MaLimite.setText(""+limites.get(0).getLimite());
+                LimiteChanger.setVisible(true);
+                LimiteChanger.setManaged(true);
+            }else {
+                AjouterLimite.setVisible(true);
+                AjouterLimite.setManaged(true);
+                LimiteChanger.setVisible(false);
+                LimiteChanger.setManaged(false);
+            }
             Categorie.setVisible(false);
             Categorie.setManaged(false);
         }else{
@@ -155,4 +182,53 @@ public class DepenseController {
             }
 
     }
+
+    public void handleChangerLimiteClick(ActionEvent actionEvent) {
+        handleAjouterLimiteClick(actionEvent);
+
+    }
+
+    public void handleAjouterLimiteClick(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("vues/AjoutLimite.fxml"));
+            AnchorPane root = loader.load();
+
+            Stage ajoutLimiteStage = new Stage();
+            ajoutLimiteStage.initModality(Modality.APPLICATION_MODAL);
+            ajoutLimiteStage.setTitle("Ajout de Limite de Dépense");
+            ajoutLimiteStage.setScene(new Scene(root));
+
+            // Afficher la fenêtre d'ajout de limite
+            ajoutLimiteStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace(); // Gérez les exceptions de manière appropriée dans votre application
+        }
+    }
+
+
+    public void handleSupprimerLimiteClick(ActionEvent actionEvent) {
+        LimiteDepense limiteDepense = new LimiteDepense();
+
+        // Récupérer la liste des limites depuis la base de données
+        List<LimiteDepense> limites = limiteDepense.getLimites();
+
+        // Vérifier si des limites existent
+        if (!limites.isEmpty()) {
+            // Supprimer la première limite de la liste (par exemple)
+            LimiteDepense premiereLimite = limites.get(0);
+            limiteDepense.supprimerLimiteDepense(premiereLimite.getId());
+
+            // Afficher un message de succès
+            afficherBoiteDialogue(Alert.AlertType.INFORMATION, "Succès", "Limite de dépense supprimée avec succès.");
+        }
+    }
+
+    private void afficherBoiteDialogue(Alert.AlertType type, String titre, String contenu) {
+        Alert alert = new Alert(type);
+        alert.setTitle(titre);
+        alert.setHeaderText(null);
+        alert.setContentText(contenu);
+        alert.showAndWait();
+    }
+
 }

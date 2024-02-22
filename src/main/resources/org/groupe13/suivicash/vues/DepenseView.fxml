@@ -7,6 +7,9 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Text?>
 <VBox prefHeight="518.0" prefWidth="806.0" spacing="15.0"
       xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
       fx:controller="org.groupe13.suivicash.DepenseController">
@@ -15,9 +18,25 @@
     </padding>
     <children>
         <VBox fx:id="MonVbox">
-        <Button fx:id="AjouterCategorieButton"  onAction="#handleAjouterCategorieClick"
-                prefHeight="40.0" prefWidth="200.0" text="Ajouter Catégorie"/>
-        <ListView fx:id="CategorieListView" prefHeight="800.0" prefWidth="766.0" />
+            <HBox fx:id="LimiteChanger">
+                <Label text="Ma limite de depense" ></Label>
+                <Text text="" fx:id="MaLimite"></Text>
+                <Button fx:id="SupprimerLimiteButton"  onAction="#handleSupprimerLimiteClick"
+                        prefHeight="40.0" prefWidth="200.0" text="Supprimer la Limite"/>
+
+                <Button fx:id="ChangerLimiteButton"  onAction="#handleChangerLimiteClick"
+                        prefHeight="40.0" prefWidth="200.0" text="Changer Limite"/>
+
+            </HBox>
+            <HBox fx:id="AjouterLimite">
+
+                <Button fx:id="AjouterLimiteButton"  onAction="#handleAjouterLimiteClick"
+                        prefHeight="40.0" prefWidth="200.0" text="Ajouter une Limite"/>
+
+            </HBox>
+            <Button fx:id="AjouterCategorieButton"  onAction="#handleAjouterCategorieClick"
+                    prefHeight="40.0" prefWidth="200.0" text="Ajouter Catégorie"/>
+            <ListView fx:id="CategorieListView" prefHeight="800.0" prefWidth="766.0" />
         </VBox>
         <BorderPane fx:id="Categorie" prefHeight="458.0" prefWidth="586.0">
             <center>
