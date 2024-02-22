@@ -1,71 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.text.Text?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.collections.FXCollections?>
-<?import java.lang.String?>
-<VBox prefHeight="518.0" prefWidth="806.0" spacing="15.0"
-      xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="org.groupe13.suivicash.DepenseController">
+<VBox prefHeight="518.0" prefWidth="806.0" spacing="15.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.groupe13.suivicash.DepenseController">
     <padding>
         <Insets bottom="20" left="20" right="20" top="20" />
     </padding>
     <children>
-        <!--VBox pour la page d'accueil -->
-        <VBox fx:id="MonVbox">
-            <!--Changer de limites-->
-            <HBox fx:id="LimiteChanger">
-                <Label text="Ma limite de depense" ></Label>
-                <Text text="" fx:id="MaLimite"></Text>
-                <Button fx:id="SupprimerLimiteButton"  onAction="#handleSupprimerLimiteClick"
-                        prefHeight="40.0" prefWidth="200.0" text="Supprimer la Limite"/>
+        <!-- VBox pour la page d'accueil -->
+        <VBox fx:id="MonVbox" spacing="10">
 
-                <Button fx:id="ChangerLimiteButton"  onAction="#handleChangerLimiteClick"
-                        prefHeight="40.0" prefWidth="200.0" text="Changer Limite"/>
-
+            <!-- Bouton pour ajouter une limite -->
+            <HBox fx:id="AjouterLimite" spacing="10">
+                <Button fx:id="AjouterLimiteButton" onAction="#handleAjouterLimiteClick" prefHeight="40.0" prefWidth="200.0" text="Ajouter une Limite" />
+            </HBox>
+            <!-- Changer de limites -->
+            <HBox fx:id="LimiteChanger" spacing="10">
+                <Button fx:id="ChangerLimiteButton" onAction="#handleChangerLimiteClick" prefHeight="40.0" prefWidth="200.0" text="Changer Limite" />
+                <Button fx:id="SupprimerLimiteButton" onAction="#handleSupprimerLimiteClick" prefHeight="40.0" prefWidth="200.0" text="Supprimer la Limite" />
+                <Label text="Ma limite de dépense" />
+                <Text fx:id="MaLimite" />
             </HBox>
 
-            <!--Bouton pour ajouter une limite-->
-            <HBox fx:id="AjouterLimite">
-
-                <Button fx:id="AjouterLimiteButton"  onAction="#handleAjouterLimiteClick"
-                        prefHeight="40.0" prefWidth="200.0" text="Ajouter une Limite"/>
-
+            <HBox spacing="10">
+                <Label text="Mon total de dépense: " />
+                <Text fx:id="MonTotal" />
             </HBox>
 
-            <HBox>
-                <Label text="Mon total de depense: "></Label>
-                <Text fx:id="MonTotal" text=""/>
-            </HBox>
-            <ComboBox fx:id="MonthComboBox" onAction="#handleMonthFilterChange">
-                <items>
-                    <FXCollections fx:factory="observableArrayList">
+            <ComboBox fx:id="MonthComboBox" onAction="#handleMonthFilterChange" />
 
-                    </FXCollections>
-                </items>
-            </ComboBox>
+            <Text fx:id="Avertissement" text="Avertissement" />
 
-            <Text fx:id="Avertissement" text="Avertissons"></Text>
-            <!--Liste Categorie-->
-            <Button fx:id="AjouterCategorieButton"  onAction="#handleAjouterCategorieClick"
-                    prefHeight="40.0" prefWidth="200.0" text="Ajouter Catégorie"/>
+            <!-- Liste Catégorie -->
+            <Button fx:id="AjouterCategorieButton" onAction="#handleAjouterCategorieClick" prefHeight="40.0" prefWidth="200.0" text="Ajouter Catégorie" />
 
-            <ListView fx:id="CategorieListView" prefHeight="800.0" prefWidth="766.0" />
+            <ListView fx:id="CategorieListView" prefHeight="400.0" prefWidth="766.0" />
         </VBox>
 
-        <!--BorderPane pour la liste des depenses -->
+        <!-- BorderPane pour la liste des dépenses -->
         <BorderPane fx:id="Categorie" prefHeight="458.0" prefWidth="586.0">
             <center>
-                <AnchorPane fx:id="mainContent" />
+                <ListView fx:id="DepensesListView" prefHeight="400.0" prefWidth="566.0" />
             </center>
         </BorderPane>
     </children>
