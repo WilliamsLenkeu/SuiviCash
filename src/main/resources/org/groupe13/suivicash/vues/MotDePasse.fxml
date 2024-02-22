@@ -1,32 +1,36 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="org.groupe13.suivicash.MotDePasseController"
             prefHeight="400.0" prefWidth="600.0">
-
+    <!-- Contenu de l'AnchorPane -->
     <VBox spacing="10" alignment="CENTER">
-        <Label text="Ajouter/Changer Mot de Passe" font="System Bold 18" />
+
 
         <!-- Formulaire pour Ajouter Mot de Passe -->
         <VBox fx:id="ajoutForm" visible="true" alignment="CENTER" spacing="5">
-            <PasswordField promptText="Nouveau Mot de Passe" />
-            <PasswordField promptText="Confirmer le Mot de Passe" />
+            <Label text="Ajouter Mot de Passe" />
+            <PasswordField fx:id="newPasswordInput" promptText="Nouveau Mot de Passe" />
+            <PasswordField fx:id="confirmPasswordInput" promptText="Confirmer le Mot de Passe" />
+
             <Button text="Ajouter" onAction="#ajouterMotDePasse" />
         </VBox>
 
         <!-- Formulaire pour Changer Mot de Passe -->
         <VBox fx:id="changerForm" visible="false" alignment="CENTER" spacing="5">
-            <PasswordField promptText="Ancien Mot de Passe" />
+            <Label text="Changer Mot de Passe" />
+            <PasswordField promptText="Ancien Mot de Passe"  />
             <PasswordField promptText="Nouveau Mot de Passe" />
             <PasswordField promptText="Confirmer le Nouveau Mot de Passe" />
+            <Button text="Supprimer" onAction="#SupprimerMotDePasse" />
             <Button text="Changer" onAction="#changerMotDePasse" />
         </VBox>
     </VBox>
-
 </AnchorPane>

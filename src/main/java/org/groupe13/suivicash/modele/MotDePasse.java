@@ -1,4 +1,6 @@
 package org.groupe13.suivicash.modele;
+
+import javafx.scene.control.Alert;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.*;
@@ -36,28 +38,28 @@ public class MotDePasse {
     }
 
     static connectionFile ConnectionFile;
+
     // Méthode pour insérer un mot de passe dans la base de données
     public boolean insererMotDePasse() {
         try (Connection connection = ConnectionFile.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO motsdepasse (IDUtilisateur, MotDePasse) VALUES (?, ?)")) {
+             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO motsdepasse ( MotDePasse) VALUES ( ?)")) {
 
-            preparedStatement.setInt(1, getIdUtilisateur());
 
             // Hasher le mot de passe avec BCrypt avant de l'insérer
-
             String motDePasseHash = BCrypt.hashpw(getMotDePasse(), BCrypt.gensalt());
-            preparedStatement.setString(2, motDePasseHash);
+            preparedStatement.setString(1, motDePasseHash);
 
             preparedStatement.executeUpdate();
 
-            System.out.println("Mot de passe inséré avec succès.");
+            afficherBoiteDialogue(Alert.AlertType.INFORMATION, "Succès", "Mot de passe inséré avec succès.");
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
-        return false;
     }
-        // Méthode pour supprimer un mot de passe de la base de données
+
+    // Méthode pour supprimer un mot de passe de la base de données
     public void supprimerMotDePasse() {
         try (Connection connection = ConnectionFile.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM motsdepasse WHERE IDUtilisateur = ?")) {
@@ -66,7 +68,7 @@ public class MotDePasse {
 
             preparedStatement.executeUpdate();
 
-            System.out.println("Mot de passe supprimé avec succès.");
+            afficherBoiteDialogue(Alert.AlertType.INFORMATION, "Succès", "Mot de passe supprimé avec succès.");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -77,12 +79,14 @@ public class MotDePasse {
         try (Connection connection = ConnectionFile.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement("UPDATE motsdepasse SET MotDePasse = ? WHERE IDUtilisateur = ?")) {
 
-            preparedStatement.setString(1, getMotDePasse());
+            // Hasher le mot de passe avec BCrypt avant de l'insérer
+            String motDePasseHash = BCrypt.hashpw(getMotDePasse(), BCrypt.gensalt());
+            preparedStatement.setString(1, motDePasseHash);
             preparedStatement.setInt(2, getIdUtilisateur());
 
             preparedStatement.executeUpdate();
 
-            System.out.println("Mot de passe modifié avec succès.");
+            afficherBoiteDialogue(Alert.AlertType.INFORMATION, "Succès", "Mot de passe modifié avec succès.");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -110,4 +114,12 @@ public class MotDePasse {
         return motsDePasseList;
     }
 
+    // Méthode pour afficher une boîte de dialogue
+    private void afficherBoiteDialogue(Alert.AlertType type, String titre, String contenu) {
+        Alert alert = new Alert(type);
+        alert.setTitle(titre);
+        alert.setHeaderText(null);
+        alert.setContentText(contenu);
+        alert.showAndWait();
+    }
 }
