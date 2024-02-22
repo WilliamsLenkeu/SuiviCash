@@ -4,7 +4,7 @@ import javafx.scene.control.Alert;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.*;
+import java.util.List;
 import java.sql.Date;
 
 public class Revenus {
@@ -13,17 +13,21 @@ public class Revenus {
     private Date DateRevenu;
     private String description;
     private String nomBanque;
+    private String typeRepetition;
+    private Integer periodeRepetition;
 
     // Constructeurs
     public Revenus() {
     }
 
-    public Revenus(int IDRevenu, double montant, Date DateRevenu, String description, String nomBanque) {
+    public Revenus(int IDRevenu, double montant, Date DateRevenu, String description, String nomBanque, String typeRepetition, Integer periodeRepetition) {
         this.IDRevenu = IDRevenu;
         this.montant = montant;
         this.DateRevenu = DateRevenu;
         this.description = description;
         this.nomBanque = nomBanque;
+        this.typeRepetition = typeRepetition;
+        this.periodeRepetition = periodeRepetition;
     }
 
     // Getters et setters
@@ -67,21 +71,39 @@ public class Revenus {
         this.nomBanque = nomBanque;
     }
 
+    public String getTypeRepetition() {
+        return typeRepetition;
+    }
+
+    public void setTypeRepetition(String typeRepetition) {
+        this.typeRepetition = typeRepetition;
+    }
+
+    public Integer getPeriodeRepetition() {
+        return periodeRepetition;
+    }
+
+    public void setPeriodeRepetition(Integer periodeRepetition) {
+        this.periodeRepetition = periodeRepetition;
+    }
+
     public List<Revenus> getRevenus() {
         List<Revenus> revenusList = new ArrayList<>();
 
         try (Connection connection = connectionFile.getConnection()) {
             String sql = "SELECT revenus.IDRevenu, revenus.Montant, revenus.DateRevenu, revenus.Description, " +
-                    "banques.NomBanque FROM revenus JOIN banques ON revenus.IDBanque = banques.IDBanque";
+                    "revenus.TypeRepetition, revenus.PeriodeRepetition, banques.NomBanque FROM revenus JOIN banques ON revenus.IDBanque = banques.IDBanque";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 ResultSet resultSet = statement.executeQuery();
 
                 while (resultSet.next()) {
                     Revenus revenus = new Revenus();
                     revenus.setIDRevenu(resultSet.getInt("IDRevenu"));
-                    revenus.setMontant(resultSet.getInt("Montant"));
+                    revenus.setMontant(resultSet.getDouble("Montant"));
                     revenus.setDateRevenu(resultSet.getDate("DateRevenu"));
                     revenus.setDescription(resultSet.getString("Description"));
+                    revenus.setTypeRepetition(resultSet.getString("TypeRepetition"));
+                    revenus.setPeriodeRepetition(resultSet.getInt("PeriodeRepetition"));
                     revenus.setNomBanque(resultSet.getString("NomBanque"));
 
                     revenusList.add(revenus);
@@ -111,18 +133,20 @@ public class Revenus {
     }
 
     // Méthode pour ajouter un revenu à la base de données
-    public void ajouterRevenu(String montant, Date date, String description, String nomBanque) {
+    public void ajouterRevenu(double montant, Date date, String description, String nomBanque, String typeRepetition, Integer periodeRepetition) {
         try (Connection connection = connectionFile.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO revenus (Montant, DateRevenu, Description, IDBanque) VALUES (?, ?, ?, ?)");
-            preparedStatement.setString(1, montant);
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO revenus (Montant, DateRevenu, Description, IDBanque, TypeRepetition, PeriodeRepetition) VALUES (?, ?, ?, ?, ?, ?)");
+            preparedStatement.setDouble(1, montant);
             preparedStatement.setDate(2, date);
             preparedStatement.setString(3, description);
             int idBanque = getIdBanque(nomBanque);
             preparedStatement.setInt(4, idBanque);
+            preparedStatement.setString(5, typeRepetition);
+            preparedStatement.setInt(6, periodeRepetition);
             preparedStatement.executeUpdate();
 
             // Mettre à jour le solde de la banque correspondante
-            crediterSoldeBanque(idBanque, Double.parseDouble(montant));
+            crediterSoldeBanque(idBanque, montant);
 
             afficherInformation("Succès", "Le revenu a été ajouté avec succès.");
         } catch (SQLException e) {
@@ -148,7 +172,6 @@ public class Revenus {
             System.out.println("Erreur lors de la mise à jour du solde de la banque : " + e.getMessage());
         }
     }
-    /*test*/
 
     public void deleteRevenus() {
         try {

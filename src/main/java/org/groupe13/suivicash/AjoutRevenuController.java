@@ -5,7 +5,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import org.groupe13.suivicash.modele.Revenus;
 
 import java.sql.SQLException;
@@ -24,6 +23,12 @@ public class AjoutRevenuController {
     @FXML
     private ChoiceBox<String> banqueChoiceBox;
 
+    @FXML
+    private ChoiceBox<String> typeRepetitionChoiceBox;
+
+    @FXML
+    private TextField periodeRepetitionTextField;
+
     // Méthode appelée lors de l'initialisation du contrôleur
     @FXML
     private void initialize() {
@@ -41,12 +46,14 @@ public class AjoutRevenuController {
     private void validerAjoutRevenu() {
         Revenus revenus = new Revenus();
         // Récupérer les valeurs des champs
-        String montant = montantTextField.getText();
+        double montant = Double.parseDouble(montantTextField.getText());
         java.sql.Date date = java.sql.Date.valueOf(dateTextField.getValue());
         String description = descriptionTextField.getText();
         String banque = banqueChoiceBox.getValue();
+        String typeRepetition = typeRepetitionChoiceBox.getValue();
+        Integer periodeRepetition = Integer.parseInt(periodeRepetitionTextField.getText());
 
-        revenus.ajouterRevenu(montant, date, description, banque);
+        revenus.ajouterRevenu(montant, date, description, banque, typeRepetition, periodeRepetition);
     }
 
     // Méthode pour afficher une alerte d'erreur
