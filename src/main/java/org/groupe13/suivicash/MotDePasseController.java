@@ -129,7 +129,11 @@ public class MotDePasseController {
                 // Si la correspondance est correcte, supprimer le mot de passe
                 motDePasse.setIdUtilisateur(Mots.get(0).getIdUtilisateur());
                 motDePasse.supprimerMotDePasse();
-
+                // Mettre à jour l'affichage après l'ajout du mot de passe
+                ajoutForm.setVisible(true);
+                ajoutForm.setManaged(true);
+                changerForm.setVisible(false);
+                changerForm.setManaged(false);
                 // Afficher un message de succès
                // afficherBoiteDialogue(Alert.AlertType.INFORMATION, "Succès", "Mot de passe supprimé avec succès.");
             } else {
