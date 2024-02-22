@@ -301,7 +301,7 @@ public class DepenseController {
         updateListViewWithFilteredData(numeroMois, anneeActuelle);
     }
 
-    private void updateListViewWithFilteredData(int numeroMois, int annee) {
+    private  void updateListViewWithFilteredData(int numeroMois, int annee) {
 
         // Récupérer la liste des catégories
         List<Categorie> categories = new Categorie().getAllCategories(annee, numeroMois);
@@ -341,9 +341,9 @@ public class DepenseController {
 
         }
 
-        }
-
     }
+
+}
 
 
 

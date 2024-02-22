@@ -2,10 +2,9 @@ package org.groupe13.suivicash;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import org.groupe13.suivicash.modele.Categorie;
+import org.groupe13.suivicash.modele.LimiteDepense;
 import org.groupe13.suivicash.modele.connectionFile;
 
 import javafx.scene.control.Alert;
@@ -14,8 +13,10 @@ import javafx.scene.control.Alert.AlertType;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class AjoutDepenseController {
     public TextField descriptionField;
@@ -89,6 +90,8 @@ public class AjoutDepenseController {
     public void HandleAjouterDepense(ActionEvent actionEvent) {
         // Récupérer les valeurs des champs
         LocalDate date = datePicker.getValue();
+        int numeroMois = date.getMonthValue();
+        int annee = date.getYear();
         String montantStr = montantField.getText();
         String description = descriptionField.getText(); // La description peut être vide
 
@@ -141,7 +144,25 @@ public class AjoutDepenseController {
                         ResultSet generatedKeys = statementInsert.getGeneratedKeys();
                         if (generatedKeys.next()) {
                             int idDepense = generatedKeys.getInt(1);
+                            if(updateListViewWithFilteredData(numeroMois,annee)) {
+                                // Afficher une boîte de dialogue de confirmation
+                                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                                alert.setTitle("Confirmation de suppression");
+                                alert.setHeaderText(null);
+                                alert.setContentText("Votre limite de ce mois est atteinte. Êtes-vous sûr de vouloir continuer?");
 
+                                Optional<ButtonType> result = alert.showAndWait();
+
+                                if (result.isPresent() && result.get() == ButtonType.OK) {
+                                    // Débiter le solde de la banque
+                                    debiterSoldeBanque(idBanque, montant);
+
+                                    // Afficher un message de succès
+                                    afficherBoiteDialogue(AlertType.INFORMATION, "Succès", "Dépense ajoutée avec succès. Le solde la banque choisie a ete debite avec succes rendez vous dans Banques pour voir le nouveau solde" );
+                                    return;
+                                }
+                                return;
+                            }
                             // Débiter le solde de la banque
                             debiterSoldeBanque(idBanque, montant);
 
@@ -222,5 +243,39 @@ public class AjoutDepenseController {
         }
         return nomsBanques;
     }
+
+
+    private  boolean updateListViewWithFilteredData(int numeroMois, int annee) {
+
+        // Récupérer la liste des catégories
+        List<Categorie> categories = new Categorie().getAllCategories(annee, numeroMois);
+
+
+
+
+        double total= 0.0;
+        // Ajouter les catégories à la ListView en tant que boutons cliquables
+        for (Categorie category : categories) {
+            double totalDepense = category.getTotalDepense();
+
+            total+= category.getTotalDepense();
+        }
+        // Initialiser la classe LimiteDepense
+        LimiteDepense limiteDepense = new LimiteDepense();
+
+        // Récupérer la liste des limites depuis la base de données
+        List<LimiteDepense>limites = limiteDepense.getLimites();
+
+        // Vérifier si des limites existent
+        if (!(limites).isEmpty()) {
+            if(limites.get(0).getLimite()<total){
+
+                return true;
+            }
+
+        }
+        return false;
+    }
+
 
 }
