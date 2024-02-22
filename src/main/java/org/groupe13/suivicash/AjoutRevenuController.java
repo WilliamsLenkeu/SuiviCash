@@ -98,6 +98,10 @@ public class AjoutRevenuController {
             afficherErreur("Erreur de saisie", "La période de répétition doit être un entier positif.");
             return false;
         }
+        if (!periodeRepetition.isEmpty() && !periodeRepetition.matches("\\d+")) {
+            afficherErreur("Erreur de saisie", "La période de répétition doit être un entier positif.");
+            return false;
+        }
 
         return true;
     }
