@@ -59,8 +59,8 @@ public class Categorie {
         this.totalDepense = total;
     }
 
-    // Méthode pour récupérer toutes les catégories depuis la base de données
-    public List<Categorie> getAllCategories() {
+    // Méthode pour récupérer toutes les catégories depuis la base de données avec option pour mois et année
+    public List<Categorie> getAllCategories(int year, int month) {
         List<Categorie> categories = new ArrayList<>();
 
         connectionFile ConnectionFile = null;
@@ -73,7 +73,15 @@ public class Categorie {
                     int idCategorie = resultSet.getInt("IDCategorie");
                     String nomCategorie = resultSet.getString("NomCategorie");
                     Depense dep = new Depense();
-                    List<Depense> MesDept= dep.getAllDepenses();
+
+                    List<Depense> MesDept;
+                    if (year > 0 && month > 0) {
+                        // Fetch expenses for the specified month and year
+                        MesDept = dep.getDepensesByMonth(year, month);
+                    } else {
+                        // Fetch all expenses
+                        MesDept = dep.getAllDepenses();
+                    }
 
                     Categorie categorie = new Categorie(idCategorie, nomCategorie);
                     categorie.calculerTotalDepense(MesDept);

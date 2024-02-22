@@ -193,4 +193,39 @@ public class Depense {
         return depenses;
     }
 
+    // Méthode pour récupérer les dépenses d'un mois donné depuis la base de données
+    public List<Depense> getDepensesByMonth(int year, int month) {
+        List<Depense> depenses = new ArrayList<>();
+
+        connectionFile ConnectionFile = null;
+        try (Connection connection = ConnectionFile.getConnection()) {
+            String sql = "SELECT `IDDepense`, `Montant`, `DateDepense`, `Description`, `depenses`.`IDBanque`, `IDCategorie`, `NomBanque` " +
+                    "FROM `depenses` JOIN banques ON `depenses`.IDBanque = banques.IDBanque " +
+                    "WHERE YEAR(`DateDepense`) = ? AND MONTH(`DateDepense`) = ?";
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setInt(1, year);
+                statement.setInt(2, month);
+
+                ResultSet resultSet = statement.executeQuery();
+
+                while (resultSet.next()) {
+                    int idDepense = resultSet.getInt("IDDepense");
+                    double montant = resultSet.getDouble("Montant");
+                    Date dateDepense = resultSet.getDate("DateDepense");
+                    String description = resultSet.getString("Description");
+                    int idBanque = resultSet.getInt("IDBanque");
+                    int idCategorie = resultSet.getInt("IDCategorie");
+                    String nomBanque = resultSet.getString("NomBanque");
+
+                    Depense depense = new Depense(idDepense, montant, dateDepense, description, idBanque, idCategorie, nomBanque);
+                    depenses.add(depense);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return depenses;
+    }
+
 }
