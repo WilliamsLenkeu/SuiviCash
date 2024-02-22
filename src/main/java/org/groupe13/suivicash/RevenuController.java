@@ -67,7 +67,7 @@ public class RevenuController {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmation de suppression");
             alert.setHeaderText(null);
-            alert.setContentText("Si vous supprimez cette dépense, le solde de votre banque sera restauré. Êtes-vous sûr de vouloir continuer?");
+            alert.setContentText("Êtes-vous sûr de vouloir supprimez ce revenu?");
 
             Optional<ButtonType> result = alert.showAndWait();
 
