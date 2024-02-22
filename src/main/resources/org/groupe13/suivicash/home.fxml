@@ -54,7 +54,7 @@
                     </children>
                 </AnchorPane>
                 <!-- Zone droite (potentiellement une zone de défilement) -->
-                <ScrollPane fx:id="contentScrollPane" prefHeight="518.0" prefWidth="806.0">
+                <ScrollPane fx:id="contentScrollPane" prefHeight="518.0" prefWidth="806.0" style="-fx-background-color: #5C6E5D;">
                     <content>
                         <fx:include fx:id="view" source="vues/DashboardView.fxml" />
                     </content>

@@ -1,18 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="261.0" prefWidth="300" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.groupe13.suivicash.AjoutRevenuController">
+<AnchorPane prefHeight="315.0" prefWidth="300" style="-fx-background-color: #48358E;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.groupe13.suivicash.AjoutRevenuController">
     <children>
-        <Label layoutX="58" layoutY="20" style="-fx-font-size: 14px;" text="Montant :" />
-        <TextField fx:id="montantTextField" layoutX="123" layoutY="16" prefHeight="25" prefWidth="120" />
-        <Label layoutX="58" layoutY="60" style="-fx-font-size: 14px;" text="Date :" />
-        <DatePicker fx:id="dateTextField" layoutX="123" layoutY="56" prefHeight="25" prefWidth="120" />
-        <Label layoutX="58" layoutY="100" style="-fx-font-size: 14px;" text="Description :" />
-        <TextField fx:id="descriptionTextField" layoutX="123" layoutY="96" prefHeight="25" prefWidth="120" />
-        <Label layoutX="58" layoutY="140" style="-fx-font-size: 14px;" text="Banque :" />
-        <ChoiceBox fx:id="banqueChoiceBox" layoutX="123" layoutY="136" prefHeight="25" prefWidth="120" />
-        <Button layoutX="123" layoutY="180" mnemonicParsing="false" onAction="#validerAjoutRevenu" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px;" text="Valider" />
+        <Label layoutX="27.0" layoutY="66.0" style="-fx-font-size: 14px;" text="Montant :" textFill="WHITE">
+         <font>
+            <Font name="Montserrat Bold" size="12.0" />
+         </font></Label>
+        <TextField fx:id="montantTextField" layoutX="129.0" layoutY="64.0" prefHeight="25" prefWidth="134.0" />
+        <Label layoutX="27.0" layoutY="106.0" style="-fx-font-size: 14px;" text="Date :" textFill="WHITE">
+         <font>
+            <Font name="Montserrat Bold" size="12.0" />
+         </font></Label>
+        <DatePicker fx:id="dateTextField" layoutX="129.0" layoutY="104.0" prefHeight="25" prefWidth="144.0" />
+        <Label layoutX="27.0" layoutY="146.0" style="-fx-font-size: 14px;" text="Description :" textFill="WHITE">
+         <font>
+            <Font name="Montserrat Bold" size="12.0" />
+         </font></Label>
+        <TextField fx:id="descriptionTextField" layoutX="129.0" layoutY="144.0" prefHeight="25" prefWidth="144.0" />
+        <Label layoutX="27.0" layoutY="186.0" style="-fx-font-size: 14px;" text="Banque :" textFill="WHITE">
+         <font>
+            <Font name="Montserrat Bold" size="12.0" />
+         </font></Label>
+        <ChoiceBox fx:id="banqueChoiceBox" layoutX="129.0" layoutY="184.0" prefHeight="25" prefWidth="144.0" />
+        <Button layoutX="103.0" layoutY="246.0" mnemonicParsing="false" onAction="#validerAjoutRevenu" prefHeight="40.0" prefWidth="103.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px;" text="Valider" />
+      <Label layoutX="56.0" layoutY="14.0" text="Ajouter des Revenus" textFill="WHITE">
+         <font>
+            <Font name="Montserrat Bold" size="18.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>
