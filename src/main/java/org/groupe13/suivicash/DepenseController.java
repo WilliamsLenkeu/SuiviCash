@@ -1,12 +1,10 @@
 package org.groupe13.suivicash;
 
+import javafx.collections.FXCollections;
+import javafx.scene.control.*;
 import org.groupe13.suivicash.modele.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.event.ActionEvent;
@@ -23,6 +21,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,12 +41,15 @@ public class DepenseController {
     public Button AjouterLimiteButton;
     public HBox LimiteChanger;
     public Button SupprimerLimiteButton;
+    public Text Avertissement;
+    public Text MonTotal;
+    public List<LimiteDepense> limites;
+    public ComboBox MonthComboBox;
 
     public  void RendreVisibile(int i){
         if(i==0){
             MonVbox.setVisible(true);
             MonVbox.setManaged(true);
-            List<LimiteDepense> limites;
 
             // Initialiser la classe LimiteDepense
             LimiteDepense limiteDepense = new LimiteDepense();
@@ -77,13 +81,23 @@ public class DepenseController {
     }
     @FXML
     private void initialize() {
+
+        // Remplir la ComboBox avec les mois
+        MonthComboBox.setItems(FXCollections.observableArrayList(
+                "Tous", "Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
+                "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"
+        ));
+
+        LocalDate currentDate = LocalDate.now();
+        String moisActuel = currentDate.format(DateTimeFormatter.ofPattern("MMMM")); // Obtenir le nom du mois
+        MonthComboBox.setValue(moisActuel);
         // Récupérer la liste des catégories
-        List<Categorie> categories = new Categorie().getAllCategories();
+        List<Categorie> categories = new Categorie().getAllCategories(-1,-1);
         RendreVisibile(0);
         // Récupérer la liste des dépenses
         Depense depense = new Depense();
 
-
+        double total= 0.0;
         // Ajouter les catégories à la ListView en tant que boutons cliquables
         for (Categorie category : categories) {
             double totalDepense = category.getTotalDepense();
@@ -91,6 +105,12 @@ public class DepenseController {
             Button categoryButton = new Button(displayText);
             categoryButton.setOnAction(event -> handleCategoryButtonClick(category.getNomCategorie()));
             CategorieListView.getItems().add(categoryButton);
+            total+= category.getTotalDepense();
+        }
+        MonTotal.setText(""+total);
+        // Vérifier si des limites existent
+        if (!((List<?>) limites).isEmpty()){
+
         }
     }
 
@@ -236,5 +256,88 @@ public class DepenseController {
         alert.setContentText(contenu);
         alert.showAndWait();
     }
+
+    @FXML
+    private void handleMonthFilterChange(ActionEvent event) {
+        String moisSelectionne = (String) MonthComboBox.getValue();
+
+        // Assurez-vous que les noms des mois en français correspondent aux constantes d'énumération Month
+        Month selectedMonth = Month.JANUARY; // Valeur par défaut
+
+        switch (moisSelectionne.toUpperCase()) {
+            case "JANVIER":
+                selectedMonth = Month.JANUARY;
+                break;
+            case "FÉVRIER":
+                selectedMonth = Month.FEBRUARY;
+                break;
+            case "MARS":
+                selectedMonth = Month.MARCH;
+                break;
+            case "AVRIL":
+                selectedMonth = Month.APRIL;
+                break;
+            case "MAI":
+                selectedMonth = Month.MAY;
+                break;
+            case "JUIN":
+                selectedMonth = Month.JUNE;
+                break;
+            case "JUILLET":
+                selectedMonth = Month.JULY;
+                break;
+            case "AOÛT":
+                selectedMonth = Month.AUGUST;
+                break;
+            case "SEPTEMBRE":
+                selectedMonth = Month.SEPTEMBER;
+                break;
+            case "OCTOBRE":
+                selectedMonth = Month.OCTOBER;
+                break;
+            case "NOVEMBRE":
+                selectedMonth = Month.NOVEMBER;
+                break;
+            case "DÉCEMBRE":
+                selectedMonth = Month.DECEMBER;
+                break;
+
+        }
+        // Utilisez la constante d'énumération Month dans votre logique
+        int numeroMois = selectedMonth.getValue();
+        System.out.println(numeroMois);
+        int anneeActuelle = LocalDate.now().getYear();
+
+        // Mettre à jour la liste des catégories en fonction du mois et de l'année
+        updateListViewWithFilteredData(numeroMois, anneeActuelle);
+    }
+
+    private void updateListViewWithFilteredData(int numeroMois, int annee) {
+        // Récupérer les catégories pour le mois et l'année spécifiques
+        List<Categorie> categories = new Categorie().getAllCategories(numeroMois, annee);
+
+        // Effacer la ListView actuelle
+        CategorieListView.getItems().clear();
+
+        double total = 0.0;
+
+        // Ajouter les catégories filtrées à la ListView en tant que boutons cliquables
+        for (Categorie category : categories) {
+            double totalDepense = category.getTotalDepense();
+
+
+            String displayText = category.getNomCategorie() + " - Total Dépense : " + totalDepense;
+            Button categoryButton = new Button(displayText);
+            categoryButton.setOnAction(event -> handleCategoryButtonClick(category.getNomCategorie()));
+            CategorieListView.getItems().add(categoryButton);
+            total += totalDepense;
+        }
+
+        MonTotal.setText("" + total);
+    }
+
+
+
+
 
 }
