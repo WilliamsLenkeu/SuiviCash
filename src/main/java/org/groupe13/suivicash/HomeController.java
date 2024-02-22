@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 
 import java.io.IOException;
@@ -17,7 +18,6 @@ public class HomeController {
     private void initialize() {
         // Chargement de la vue Depense par défaut
         loadView("vues/DepenseView.fxml");
-
     }
 
     @FXML
