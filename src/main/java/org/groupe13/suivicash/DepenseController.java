@@ -92,7 +92,8 @@ public class DepenseController {
         String moisActuel = currentDate.format(DateTimeFormatter.ofPattern("MMMM")); // Obtenir le nom du mois
         MonthComboBox.setValue(moisActuel);
         // Récupérer la liste des catégories
-        List<Categorie> categories = new Categorie().getAllCategories(-1,-1);
+        List<Categorie> categories = new Categorie().getAllCategories(currentDate.getYear(), currentDate.getMonthValue());
+
         RendreVisibile(0);
         // Récupérer la liste des dépenses
         Depense depense = new Depense();
@@ -101,7 +102,7 @@ public class DepenseController {
         // Ajouter les catégories à la ListView en tant que boutons cliquables
         for (Categorie category : categories) {
             double totalDepense = category.getTotalDepense();
-            String displayText = category.getNomCategorie() + " - Total Dépense : " + totalDepense;
+            String displayText = category.getNomCategorie() + "     - Total Dépense : " + totalDepense;
             Button categoryButton = new Button(displayText);
             categoryButton.setOnAction(event -> handleCategoryButtonClick(category.getNomCategorie()));
             CategorieListView.getItems().add(categoryButton);
@@ -307,14 +308,15 @@ public class DepenseController {
         int numeroMois = selectedMonth.getValue();
         System.out.println(numeroMois);
         int anneeActuelle = LocalDate.now().getYear();
-
+        System.out.println(anneeActuelle);
         // Mettre à jour la liste des catégories en fonction du mois et de l'année
         updateListViewWithFilteredData(numeroMois, anneeActuelle);
     }
 
     private void updateListViewWithFilteredData(int numeroMois, int annee) {
+
         // Récupérer les catégories pour le mois et l'année spécifiques
-        List<Categorie> categories = new Categorie().getAllCategories(numeroMois, annee);
+        List<Categorie> categories = new Categorie().getAllCategories(02, 2024);
 
         // Effacer la ListView actuelle
         CategorieListView.getItems().clear();
@@ -324,8 +326,7 @@ public class DepenseController {
         // Ajouter les catégories filtrées à la ListView en tant que boutons cliquables
         for (Categorie category : categories) {
             double totalDepense = category.getTotalDepense();
-
-
+            System.out.println(totalDepense);
             String displayText = category.getNomCategorie() + " - Total Dépense : " + totalDepense;
             Button categoryButton = new Button(displayText);
             categoryButton.setOnAction(event -> handleCategoryButtonClick(category.getNomCategorie()));
