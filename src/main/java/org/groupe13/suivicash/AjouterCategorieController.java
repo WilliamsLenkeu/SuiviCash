@@ -51,8 +51,6 @@ public class AjouterCategorieController {
 
     @FXML
     public void handleAnnulerClick(ActionEvent actionEvent) {
-        // Annulez l'effet de flou et fermez la fenêtre
-        annulerEffetFlou();
         stage.close();
     }
 

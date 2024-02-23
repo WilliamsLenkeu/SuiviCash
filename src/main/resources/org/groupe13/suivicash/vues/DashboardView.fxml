@@ -1,19 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.chart.BarChart?>
-<?import javafx.scene.chart.CategoryAxis?>
-<?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.cell.PropertyValueFactory?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" prefHeight="518.0" prefWidth="756.0" spacing="10" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.groupe13.suivicash.DashboardController" style="-fx-background-color: #f0f0f0; -fx-padding: 20px;">
+<VBox alignment="CENTER" prefHeight="518.0" prefWidth="756.0" spacing="10" style="-fx-background-color: #f0f0f0; -fx-padding: 20px;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.groupe13.suivicash.DashboardController">
     <ComboBox fx:id="yearComboBox" onAction="#updateCharts" style="-fx-font-size: 14px;" />
     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
         <children>
@@ -22,7 +15,7 @@
                     <CategoryAxis />
                 </xAxis>
                 <yAxis>
-                    <NumberAxis tickLabelFill="WHITE" />
+                    <NumberAxis />
                 </yAxis>
             </BarChart>
             <BarChart fx:id="revenusBarChart" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="150.0" prefWidth="371.0">
@@ -30,7 +23,7 @@
                     <CategoryAxis />
                 </xAxis>
                 <yAxis>
-                    <NumberAxis tickLabelFill="#ebebeb" />
+                    <NumberAxis />
                 </yAxis>
             </BarChart>
         </children>
@@ -49,16 +42,16 @@
     <!-- test -->
     <TableView fx:id="banqueTableView" prefHeight="200.0" prefWidth="200.0">
         <columns>
-            <TableColumn prefWidth="150" text="Nom Banque">
+            <TableColumn prefWidth="210.39998817443848" text="Nom Banque">
                 <cellValueFactory><PropertyValueFactory property="nomBanque" /></cellValueFactory>
             </TableColumn>
-            <TableColumn prefWidth="100" text="Solde (XAF)">
+            <TableColumn prefWidth="264.20001220703125" text="Solde (XAF)">
                 <cellValueFactory><PropertyValueFactory property="solde" /></cellValueFactory>
             </TableColumn>
-            <TableColumn fx:id="deleteCol" prefWidth="156.0" text="Supprimer" />
+            <TableColumn fx:id="deleteCol" prefWidth="235.80001831054688" text="Supprimer" />
         </columns>
     </TableView>
-    <Label style="-fx-font-size: 14px;" text="Total des soldes des banques: " textFill="WHITE" />
+    <Label style="-fx-font-size: 14px;" text="Total des soldes des banques: " />
     <Label fx:id="totalSoldeLabel" style="-fx-font-size: 14px;" />
     <padding>
         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
