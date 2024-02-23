@@ -61,7 +61,7 @@
                                   <HBox prefHeight="30.0" prefWidth="570.0" spacing="10">
                              <Label text="Mon total de dépense: ">
                                  <font>
-                                     <Font name="System Bold " size="18.0" />
+                                     <Font name="System Bold" size="18.0" />
                                  </font>
                         </Label>
                              <Text fx:id="MonTotal" text="">
