@@ -75,6 +75,10 @@ public class AjoutBanqueController {
     private boolean banqueExisteDeja(String nomBanque) {
         boolean existe = false;
         try {
+            // Assurez-vous que la connexion n'est pas null
+            if (connection == null) {
+                connection = connectionFile.getConnection();
+            }
             String query = "SELECT COUNT(*) FROM banques WHERE LOWER(NOM_BANQUE_NORMALIZED) = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, nomBanque);

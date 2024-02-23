@@ -177,20 +177,29 @@ public class Revenus {
     public void deleteRevenus() {
         try {
             Connection connection = connectionFile.getConnection();
-            String sql = "DELETE FROM revenus WHERE IDRevenu = ?";
 
-            try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                statement.setInt(1, this.IDRevenu);
-                int rowsAffected = statement.executeUpdate();
+            // Désactiver temporairement la prise en charge des clés étrangères
+            PreparedStatement disableForeignKeyCheck = connection.prepareStatement("SET FOREIGN_KEY_CHECKS=0;");
+            disableForeignKeyCheck.executeUpdate();
+
+            String sqlRevenus = "DELETE FROM revenus WHERE IDRevenu = ?";
+
+            try (PreparedStatement statementRevenus = connection.prepareStatement(sqlRevenus)) {
+                statementRevenus.setInt(1, this.IDRevenu);
+                int rowsAffected = statementRevenus.executeUpdate();
 
                 if (rowsAffected > 0) {
-                    System.out.println("Revenus supprimée avec succès de la base de données.");
+                    System.out.println("Revenu supprimé avec succès de la base de données.");
                 } else {
-                    System.out.println("Échec de la suppression du revenus de la base de données.");
+                    System.out.println("Échec de la suppression du revenu de la base de données.");
                 }
             }
+
+            // Réactiver la prise en charge des clés étrangères
+            PreparedStatement enableForeignKeyCheck = connection.prepareStatement("SET FOREIGN_KEY_CHECKS=1;");
+            enableForeignKeyCheck.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("Erreur lors de la suppression du revenus de la base de données : " + e.getMessage());
+            System.out.println("Erreur lors de la suppression du revenu de la base de données : " + e.getMessage());
         }
     }
 
@@ -217,8 +226,8 @@ public class Revenus {
         alert.showAndWait();
     }
 
-    // Méthode pour effectuer la répétition du revenu en créditant le solde de la banque correspondante
-    public void effectuerRepetitionRevenu() {
+    // Méthode pour effectuer la répétition du revenu en incrémentant le solde de la banque correspondante
+    public void effectuerRepetitionRevenu() throws SQLException {
         // Récupérer la liste des revenus
         List<Revenus> revenusList = getRevenus();
 
@@ -226,8 +235,8 @@ public class Revenus {
         Calendar cal = Calendar.getInstance();
         Date currentDate = new Date(cal.getTimeInMillis());
 
-        // Initialiser un indicateur pour savoir si au moins une répétition a été effectuée
-        boolean repetitionEffectuee = false;
+        // Créer une instance de HistoriqueRevenus
+        HistoriqueRevenus historiqueRevenus = new HistoriqueRevenus();
 
         // Parcourir la liste des revenus
         for (Revenus revenus : revenusList) {
@@ -256,25 +265,20 @@ public class Revenus {
                     break;
             }
 
-            // Si la répétition est due, ajouter le revenu à nouveau
+            // Si la répétition est due, incrémenter le solde de la banque correspondante et enregistrer l'historique
             if (repetitionDue) {
+                int idBanque = getIdBanque(revenus.getNomBanque());
                 double montant = revenus.getMontant();
-                String description = revenus.getDescription();
-                String nomBanque = revenus.getNomBanque();
 
-                // Ajouter le revenu à nouveau en créditant le solde de la banque correspondante
-                ajouterRevenu(montant, currentDate, description, nomBanque, typeRepetition, periodeRepetition);
+                // Vérifier si la répétition pour cette date existe déjà dans l'historique
+                boolean repetitionExistante = historiqueRevenus.checkRepetitionExistante(revenus.getIDRevenu(), currentDate);
 
-                // Indiquer qu'au moins une répétition a été effectuée
-                repetitionEffectuee = true;
+                // Si aucune répétition n'existe, l'ajouter dans l'historique et incrémenter le solde de la banque correspondante
+                if (!repetitionExistante) {
+                    historiqueRevenus.ajouterHistoriqueRevenu(revenus.getIDRevenu(), currentDate);
+                    crediterSoldeBanque(idBanque, montant);
+                }
             }
-        }
-
-        // Afficher un message d'alerte en fonction de si une répétition a été effectuée ou non
-        if (repetitionEffectuee) {
-            afficherInformation("Répétitions effectuées", "Une ou plusieurs répétitions ont été effectuées.");
-        } else {
-            afficherInformation("Aucune répétition effectuée", "Aucune répétition n'a été effectuée.");
         }
     }
 

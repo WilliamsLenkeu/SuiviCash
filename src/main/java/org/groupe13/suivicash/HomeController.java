@@ -14,6 +14,7 @@ import org.groupe13.suivicash.modele.*;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 public class HomeController {
@@ -26,7 +27,7 @@ public class HomeController {
     private ScrollPane contentScrollPane;
 
     @FXML
-    private void initialize() {
+    private void initialize() throws SQLException {
         MotDePasse motDePasse= new MotDePasse();
         List<MotDePasse> mots= motDePasse.recupererTousLesMotsDePasse();
         if (!mots.isEmpty()){
@@ -41,7 +42,7 @@ public class HomeController {
     }
 
     // Méthode pour effectuer les répétitions de revenus
-    private void effectuerRepetitionsRevenus() {
+    private void effectuerRepetitionsRevenus() throws SQLException {
         Revenus revenus = new Revenus();
         revenus.effectuerRepetitionRevenu();
     }
