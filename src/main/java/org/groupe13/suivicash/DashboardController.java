@@ -10,18 +10,25 @@ import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.Modality;
 import org.groupe13.suivicash.modele.Banque;
 import org.groupe13.suivicash.modele.Revenus;
 import org.groupe13.suivicash.modele.connectionFile;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
 public class DashboardController {
 
     public TableColumn<Banque, Button> historiqueCol;
+    public BorderPane rootBorderPane;
+    public AnchorPane mainContent;
+    public VBox Banques;
     @FXML
     private TableView<Banque> banqueTableView;
 
@@ -82,10 +89,32 @@ public class DashboardController {
         }
     }
 
+    private void handleHistoriqueBanque(Banque banque) {
 
-    @FXML
-    private void handleHistoriqueBanque(Banque banque){
-        banque.getIDBanque();
+        MaSuperGlobale.IDBanque = banque.getIDBanque();
+
+        // Charger la page "vues/Historiques" dans le AnchorPane du BorderPane
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("vues/Historique.fxml"));
+            AnchorPane historiquesPane = loader.load();
+
+            // Passer l'ID de la banque à la controller de l'historique si nécessaire
+            HistoriqueController historiqueController = loader.getController();
+            
+
+            // Ajouter la page à l'AnchorPane du BorderPane
+            mainContent.getChildren().clear();
+            mainContent.getChildren().add(historiquesPane);
+
+            // Afficher le BorderPane avec la page Historiques
+            rootBorderPane.setCenter(mainContent);
+            rootBorderPane.setVisible(true);
+            rootBorderPane.setManaged(true);
+            Banques.setVisible(false);
+            Banques.setManaged(false);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     @FXML
     private void handleDeleteBanque(Banque banque) {

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.groupe13.suivicash.HistoriqueController"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <TableView fx:id="historiqueTable" layoutX="39.0" layoutY="30.0" prefHeight="335.0" prefWidth="522.0">
+        <columns>
+            <TableColumn fx:id="ancienSoldeColumn" prefWidth="75.0" text="Ancien Solde"/>
+            <TableColumn fx:id="nouveauSoldeColumn" prefWidth="75.0" text="Nouveau Solde"/>
+            <TableColumn fx:id="dateMiseAJourColumn" prefWidth="150.0" text="Date Mise à Jour"/>
+        </columns>
+    </TableView>
+
+</AnchorPane>
