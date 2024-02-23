@@ -21,6 +21,7 @@ import java.sql.SQLException;
 
 public class DashboardController {
 
+    public TableColumn<Banque, Button> historiqueCol;
     @FXML
     private TableView<Banque> banqueTableView;
 
@@ -57,6 +58,7 @@ public class DashboardController {
             loadBanquesFromDatabase();
             calculerTotalSolde();
 
+
             deleteCol.setCellValueFactory(param -> {
                 Button deleteButton = new Button("Supprimer");
                 deleteButton.setOnAction(event -> {
@@ -64,12 +66,27 @@ public class DashboardController {
                 });
                 return new SimpleObjectProperty<>(deleteButton);
             });
+
+            historiqueCol.setCellValueFactory(param -> {
+                Button deleteButton = new Button("Historique");
+                deleteButton.setOnAction(event -> {
+                    handleHistoriqueBanque(param.getValue());
+                });
+                return new SimpleObjectProperty<>(deleteButton);
+            });
+
+
         } else {
             // Gérer le cas où la connexion à la base de données a échoué
             System.err.println("La connexion à la base de données a échoué.");
         }
     }
 
+
+    @FXML
+    private void handleHistoriqueBanque(Banque banque){
+        banque.getIDBanque();
+    }
     @FXML
     private void handleDeleteBanque(Banque banque) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
