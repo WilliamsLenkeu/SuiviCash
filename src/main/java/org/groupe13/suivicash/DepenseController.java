@@ -40,7 +40,7 @@ public class DepenseController {
     public Button ChangerLimiteButton;
     public HBox AjouterLimite;
     public Button AjouterLimiteButton;
-    public HBox LimiteChanger;
+    public VBox LimiteChanger;
     public Button SupprimerLimiteButton;
     public Text Avertissement;
     public Text MonTotal;
@@ -62,7 +62,7 @@ public class DepenseController {
             if (!((List<?>) limites).isEmpty()) {
                 AjouterLimite.setVisible(false);
                 AjouterLimite.setManaged(false);
-                MaLimite.setText(""+limites.get(0).getLimite());
+                MaLimite.setText(""+limites.get(0).getLimite()+"XAF");
                 LimiteChanger.setVisible(true);
                 LimiteChanger.setManaged(true);
             }else {
@@ -316,11 +316,12 @@ public class DepenseController {
             double totalDepense = category.getTotalDepense();
             String displayText = category.getNomCategorie() + "     - Total Dépense : " + totalDepense;
             Button categoryButton = new Button(displayText);
+            categoryButton.setStyle("-fx-background-color: #dddddd; -fx-text-fill: black; -fx-font-size: 14px");
             categoryButton.setOnAction(event -> handleCategoryButtonClick(category.getNomCategorie()));
             CategorieListView.getItems().add(categoryButton);
             total+= category.getTotalDepense();
         }
-        MonTotal.setText(""+total);
+        MonTotal.setText(""+total+"XAF");
         // Initialiser la classe LimiteDepense
         LimiteDepense limiteDepense = new LimiteDepense();
 
