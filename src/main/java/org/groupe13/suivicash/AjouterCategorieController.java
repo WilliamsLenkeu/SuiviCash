@@ -54,12 +54,7 @@ public class AjouterCategorieController {
         stage.close();
     }
 
-    // Méthode privée pour annuler l'effet de flou
-    private void annulerEffetFlou() {
-        if (stage.getScene() != null && stage.getScene().getRoot() != null) {
-            stage.getScene().getRoot().setEffect(null);
-        }
-    }
+
 
     // Initialisation du contrôleur
     public  int type;

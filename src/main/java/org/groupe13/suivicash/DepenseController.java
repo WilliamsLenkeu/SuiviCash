@@ -1,6 +1,6 @@
 package org.groupe13.suivicash;
 
-import com.sun.mail.imap.Rights;
+//import com.sun.mail.imap.Rights;
 import javafx.collections.FXCollections;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="SuiviCash:jar" />
+    </artifacts-to-build>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="45db6f2e-f02e-4cdc-ac6d-755c625d9907" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/SuiviCash_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/artifacts/SuiviCash_jar/SuiviCash.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/groupe13/suivicash/images/bonbon-investing-money-online.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/groupe13/suivicash/images/handy-financial-operations.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/groupe13/suivicash/images/handy-line-safe.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/groupe13/suivicash/images/handy-purse-full-of-coins-with-umbrella.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/groupe13/suivicash/images/martina-woman-puts-a-coin-in-a-piggy-bank.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/groupe13/suivicash/AjouterCategorieController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/groupe13/suivicash/AjouterCategorieController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/groupe13/suivicash/DepenseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/groupe13/suivicash/DepenseController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/groupe13/suivicash/home.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/groupe13/suivicash/home.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/groupe13/suivicash/vues/AjoutDepense.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/groupe13/suivicash/vues/AjoutDepense.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/groupe13/suivicash/vues/AjoutRevenu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/groupe13/suivicash/vues/AjoutRevenu.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/groupe13/suivicash/vues/AjouterCategorie.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/groupe13/suivicash/vues/AjouterCategorie.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/groupe13/suivicash/vues/DashboardView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/groupe13/suivicash/vues/DashboardView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/groupe13/suivicash/vues/DepenseView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/groupe13/suivicash/vues/DepenseView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/groupe13/suivicash/vues/FormConnexion.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/groupe13/suivicash/vues/FormConnexion.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/groupe13/suivicash/vues/MotDePasse.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/groupe13/suivicash/vues/MotDePasse.fxml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 2
+}]]></component>
+  <component name="ProjectId" id="2clUA237rw2DRetEuSfbql4TyJz" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Application.SuiviCash.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Admin/IdeaProjects/SuiviCash/src/main/resources/org/groupe13/suivicash/vues",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.3954023",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Admin\IdeaProjects\SuiviCash\src\main\resources\org\groupe13\suivicash\vues" />
+      <recent name="C:\Users\Admin\IdeaProjects\SuiviCash\src\main\resources\org\groupe13\suivicash\imges" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Admin\IdeaProjects\SuiviCash\src\main\resources\org\groupe13\suivicash\vues" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="45db6f2e-f02e-4cdc-ac6d-755c625d9907" name="Changes" comment="" />
+      <created>1708685512939</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1708685512939</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+</project>

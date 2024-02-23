@@ -1,35 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import java.lang.*?>
-<?import javafx.collections.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="381.0" prefWidth="300" xmlns="http://javafx.com/javafx/11.0.14-internal"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.groupe13.suivicash.AjoutRevenuController">
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="443.0" prefWidth="322.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.groupe13.suivicash.AjoutRevenuController">
     <stylesheets>
         <FXCollections fx:factory="observableArrayList">
-            <String fx:value=".label { -fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #333333; }
-            .button { -fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px;
-            -fx-border-radius: 5px; } .button:hover { -fx-background-color: #45a049; } .text-field { -fx-background-color: #f2f2f2;
-            -fx-border-color: #ccc; -fx-border-width: 1px; -fx-border-radius: 5px; -fx-padding: 5px; }
-            .date-picker { -fx-background-color: #f2f2f2; -fx-border-color: #ccc; -fx-border-width: 1px;
-            -fx-border-radius: 5px; -fx-padding: 5px; }"/>
+            <String fx:value=".label { -fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #333333; }             .button { -fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px;             -fx-border-radius: 5px; } .button:hover { -fx-background-color: #45a049; } .text-field { -fx-background-color: #f2f2f2;             -fx-border-color: #ccc; -fx-border-width: 1px; -fx-border-radius: 5px; -fx-padding: 5px; }             .date-picker { -fx-background-color: #f2f2f2; -fx-border-color: #ccc; -fx-border-width: 1px;             -fx-border-radius: 5px; -fx-padding: 5px; }" />
         </FXCollections>
     </stylesheets>
     <children>
-        <VBox layoutX="38" layoutY="20" spacing="10">
-            <Label styleClass="label" text="Montant :" />
+        <VBox layoutX="35.0" layoutY="72.0" spacing="10">
+            <Label styleClass="label" text="Montant :">
+            <font>
+               <Font name="Montserrat Light" size="12.0" />
+            </font></Label>
             <TextField fx:id="montantTextField" prefHeight="25" prefWidth="220" styleClass="text-field" />
-            <Label styleClass="label" text="Date :" />
-            <DatePicker fx:id="dateTextField" prefHeight="25" prefWidth="220" styleClass="date-picker" />
-            <Label styleClass="label" text="Description :" />
+            <Label styleClass="label" text="Date :">
+            <font>
+               <Font name="Montserrat Light" size="12.0" />
+            </font></Label>
+            <DatePicker fx:id="dateTextField" prefHeight="25" prefWidth="261.0" styleClass="date-picker" />
+            <Label styleClass="label" text="Description :">
+            <font>
+               <Font name="Montserrat Light" size="12.0" />
+            </font></Label>
             <TextField fx:id="descriptionTextField" prefHeight="25" prefWidth="220" styleClass="text-field" />
-            <Label styleClass="label" text="Banque :" />
+            <Label styleClass="label" text="Banque :">
+            <font>
+               <Font name="Montserrat Light" size="12.0" />
+            </font></Label>
             <ChoiceBox fx:id="banqueChoiceBox" prefHeight="25" prefWidth="220" />
             <HBox spacing="10">
                 <VBox spacing="5">
-                    <Label styleClass="label" text="Type de répétition :" />
-                    <ChoiceBox fx:id="typeRepetitionChoiceBox" prefHeight="25" prefWidth="100" onAction="#checkRepetitionType">
+                    <Label styleClass="label" text="Type de répétition :">
+                  <font>
+                     <Font name="Montserrat Light" size="12.0" />
+                  </font></Label>
+                    <ChoiceBox fx:id="typeRepetitionChoiceBox" onAction="#checkRepetitionType" prefHeight="25" prefWidth="100">
                         <items>
                             <FXCollections fx:factory="observableArrayList">
                                 <String fx:value="unique" />
@@ -42,11 +59,22 @@
                     </ChoiceBox>
                 </VBox>
                 <VBox spacing="5">
-                    <Label styleClass="label" text="Période de répétition :" />
-                    <TextField fx:id="periodeRepetitionTextField" prefHeight="25" prefWidth="100" styleClass="text-field" disable="true" />
+                    <Label styleClass="label" text="Période de répétition :">
+                  <font>
+                     <Font name="Montserrat Light" size="12.0" />
+                  </font></Label>
+                    <TextField fx:id="periodeRepetitionTextField" disable="true" prefHeight="25" prefWidth="100" styleClass="text-field" />
                 </VBox>
             </HBox>
         </VBox>
-        <Button layoutX="123.0" layoutY="341.0" mnemonicParsing="false" onAction="#validerAjoutRevenu" styleClass="button" text="Valider" />
+        <Button layoutX="120.0" layoutY="378.0" mnemonicParsing="false" onAction="#validerAjoutRevenu" prefHeight="34.0" prefWidth="100.0" style="-fx-background-color: #4CAF50;" styleClass="button" text="Valider" textFill="WHITE">
+         <font>
+            <Font name="Montserrat Medium" size="14.0" />
+         </font></Button>
+      <Label layoutX="86.0" layoutY="19.0" prefHeight="28.0" prefWidth="168.0" text="Ajout Revenu">
+         <font>
+            <Font name="Montserrat Bold" size="22.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

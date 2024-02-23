@@ -2,7 +2,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="518.0" prefWidth="806.0" style="-fx-background-color: #f0f0f0;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.groupe13.suivicash.MotDePasseController">
+<AnchorPane prefHeight="518.0" prefWidth="806.0" style="-fx-background-color: #f0f0f0;" xmlns="http://javafx.com/javafx/11.0.14-internal"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.groupe13.suivicash.MotDePasseController">
 
     <VBox alignment="CENTER" prefHeight="518.0" prefWidth="806.0" spacing="20" style="-fx-background-color: #ffffff; -fx-padding: 20; -fx-border-radius: 10; -fx-background-radius: 10;">
 

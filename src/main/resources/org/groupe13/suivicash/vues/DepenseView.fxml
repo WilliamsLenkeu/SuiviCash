@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="518.0" prefWidth="806.0" spacing="15.0" style="-fx-background-color: #f0f0f0;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.groupe13.suivicash.DepenseController">
+<VBox prefHeight="518.0" prefWidth="806.0" spacing="15.0" style="-fx-background-color: #f0f0f0;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="org.groupe13.suivicash.DepenseController">
     <padding>
         <Insets bottom="20" left="20" right="20" top="20" />
     </padding>
@@ -25,60 +25,25 @@
 
             <VBox>
                 <!--Changer de limites-->
-                <HBox  prefHeight="72.0" prefWidth="597.0" spacing="10">
+                <HBox alignment="CENTER_RIGHT" prefHeight="72.0" prefWidth="597.0" spacing="10">
 
-                    <HBox fx:id="AjouterLimite">
-                        <Button fx:id="AjouterLimiteButton" onAction="#handleAjouterLimiteClick" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #dddddd; -fx-text-fill: black; -fx-font-size: 14px;" text="Ajouter une Limite" />
-
-                    </HBox>
+                    <HBox fx:id="AjouterLimite" />
                    <VBox fx:id="LimiteChanger">
-                       <HBox prefHeight="27.0" prefWidth="395.0">
-                       <Label text="Ma limite de dépense:    ">
-                           <font>
-                               <Font name="System Bold" size="18.0" />
-                           </font></Label>
-                       <Text fx:id="MaLimite" text="">
-                        <font>
-                           <Font name="System Regular" size="18.0" />
-                        </font></Text>
-                       </HBox>
-                       <HBox >
-                           <VBox >
-                               <Button fx:id="ChangerLimiteButton" onAction="#handleChangerLimiteClick" prefHeight="40.0" prefWidth="221.0" style="-fx-background-color: #dddddd; -fx-text-fill: black; -fx-font-size: 14px;" text="Changer Limite" />
-
-                           </VBox>
-                           <Text text="   "></Text>
-                           <HBox >
-                               <Button fx:id="SupprimerLimiteButton" onAction="#handleSupprimerLimiteClick" prefHeight="41.0" prefWidth="208.0" style="-fx-background-color: #dddddd; -fx-text-fill: black; -fx-font-size: 14px;" text="Supprimer la Limite" />
-                           </HBox>
+                       <HBox>
+                           <VBox />
+                           <Text text="   " />
+                           <HBox />
 
                        </HBox>
                    </VBox>
-
-                    <VBox prefHeight="103.0" prefWidth="461.0">
-                  <children>
-         
-                                  <HBox prefHeight="30.0" prefWidth="570.0" spacing="10">
-                             <Label text="Mon total de dépense: ">
-                                 <font>
-                                     <Font name="System Bold" size="18.0" />
-                                 </font>
-                        </Label>
-                             <Text fx:id="MonTotal" text="">
-                                 <font>
-                                     <Font size="18.0" />
-                                 </font>
-                        </Text>
-                         </HBox>
-                          <ComboBox fx:id="MonthComboBox" onAction="#handleMonthFilterChange" prefHeight="30.0" prefWidth="146.0" style="-fx-font-size: 14px;">
-                              <items>
-                                  <FXCollections fx:factory="observableArrayList">
+               <Label text="période :" />
+                    <ComboBox fx:id="MonthComboBox" onAction="#handleMonthFilterChange" prefHeight="30.0" prefWidth="146.0" style="-fx-font-size: 14px;">
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
 
                             </FXCollections>
-                              </items>
-                          </ComboBox>
-                  </children>
-                    </VBox>
+                        </items>
+                    </ComboBox>
                 </HBox>
                 <Text fx:id="Avertissement" fill="#e40b0b" managed="false" visible="false">
                <font>
@@ -87,10 +52,42 @@
 
             </VBox>
 
-             <!--Liste Categorie-->
-             <Button fx:id="AjouterCategorieButton" onAction="#handleAjouterCategorieClick" prefHeight="30.0" prefWidth="761.0" style="-fx-background-color: #4CAF50; -fx-text-fill: black; -fx-font-size: 14px;" text="Ajouter Catégorie" />
-
             <ListView fx:id="CategorieListView" prefHeight="287.0" prefWidth="746.0" />
+
+                               <HBox prefHeight="30.0" prefWidth="570.0" spacing="10">
+                 <Label text="Mon total de dépense: ">
+                     <font>
+                         <Font name="System Bold" size="18.0" />
+                     </font>
+            </Label>
+                 <Text fx:id="MonTotal" text="">
+                     <font>
+                         <Font size="18.0" />
+                     </font>
+            </Text>
+             </HBox>
+
+             <!--Liste Categorie-->
+             <Button fx:id="AjouterCategorieButton" onAction="#handleAjouterCategorieClick" prefHeight="30.0" prefWidth="761.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px;" text="Ajouter Catégorie" textFill="WHITE" />
+              <HBox prefHeight="27.0" prefWidth="395.0">
+              <Label text="Ma limite de dépense:    ">
+                  <font>
+                      <Font name="System Bold" size="18.0" />
+                  </font>
+            </Label>
+              <Text fx:id="MaLimite" text="">
+               <font>
+                  <Font name="System Regular" size="18.0" />
+               </font>
+            </Text>
+              </HBox>
+         <HBox alignment="CENTER" prefHeight="52.0" prefWidth="746.0" spacing="34.0">
+            <children>
+                     <Button fx:id="AjouterLimiteButton" onAction="#handleAjouterLimiteClick" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px;" text="Ajouter une Limite" />
+                      <Button fx:id="ChangerLimiteButton" onAction="#handleChangerLimiteClick" prefHeight="40.0" prefWidth="221.0" style="-fx-background-color: #DE7225; -fx-text-fill: white; -fx-font-size: 14px;" text="Changer Limite" />
+                      <Button fx:id="SupprimerLimiteButton" onAction="#handleSupprimerLimiteClick" prefHeight="41.0" prefWidth="208.0" style="-fx-background-color: #F01D1D; -fx-text-fill: white; -fx-font-size: 14px;" text="Supprimer la Limite" />
+            </children>
+         </HBox>
         </VBox>
 
         <!--BorderPane pour la liste des dépenses -->

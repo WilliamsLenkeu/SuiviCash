@@ -9,16 +9,20 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="305.0" prefWidth="396.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+<AnchorPane prefHeight="305.0" prefWidth="356.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
 
-    <VBox alignment="CENTER" layoutX="17.0" layoutY="5.0" prefHeight="294.0" prefWidth="362.0" spacing="15.0">
+    <VBox alignment="CENTER" layoutX="-9.0" layoutY="5.0" prefHeight="294.0" prefWidth="379.0" spacing="15.0">
 
         <!-- Label pour "Ajout de Dépense" -->
-        <Label prefHeight="18.0" prefWidth="114.0" style="-fx-font-size: 14px; -fx-text-fill: #333333;" text="Ajout de Dépense" />
+        <Label prefHeight="18.0" prefWidth="114.0" style="-fx-font-size: 14px; -fx-text-fill: #333333;" text="Ajout de Dépense">
+         <font>
+            <Font name="Montserrat Bold" size="32.0" />
+         </font></Label>
 
         <!-- DatePicker pour la date -->
-        <HBox spacing="5.0">
+        <HBox prefHeight="30.0" prefWidth="412.0" spacing="5.0">
             <Label prefHeight="18.0" prefWidth="68.0" style="-fx-font-size: 14px; -fx-text-fill: #333333;" text="Date :" />
             <DatePicker fx:id="datePicker" style="-fx-font-size: 14px; -fx-pref-width: 200px;" />
         </HBox>
@@ -32,12 +36,12 @@
         <!-- ChoiceBox pour la banque -->
         <HBox spacing="5.0">
             <Label prefHeight="18.0" prefWidth="69.0" style="-fx-font-size: 14px; -fx-text-fill: #333333;" text="Banque: " />
-            <ChoiceBox fx:id="banqueChoiceBox" style="-fx-font-size: 14px; -fx-pref-width: 200px;" />
+            <ChoiceBox fx:id="banqueChoiceBox" prefHeight="30.0" prefWidth="195.0" style="-fx-font-size: 14px; -fx-pref-width: 200px;" />
         </HBox>
 
         <!-- TextField pour la description -->
-        <HBox spacing="5.0">
-            <Label prefHeight="18.0" prefWidth="69.0" style="-fx-font-size: 14px; -fx-text-fill: #333333;" text="Description :" />
+        <HBox prefHeight="30.0" prefWidth="460.0" spacing="5.0">
+            <Label prefHeight="20.0" prefWidth="100.0" style="-fx-font-size: 14px; -fx-text-fill: #333333;" text="Description :" />
             <TextField fx:id="descriptionField" style="-fx-font-size: 14px; -fx-pref-width: 200px;" />
         </HBox>
 
