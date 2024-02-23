@@ -19,11 +19,16 @@
             <Font name="System Bold" size="20.0" />
          </font></Label>
 
+        <!-- Label pour "Ajout de Dépense" -->
+        <Label prefHeight="18.0" prefWidth="114.0" style="-fx-font-size: 14px; -fx-text-fill: #333333;" text="Ajout de Dépense" />
+
+        <!-- DatePicker pour la date -->
         <HBox spacing="5.0">
-            <Label prefHeight="18.0" prefWidth="68.0" styleClass="label" text="Date :" />
-            <DatePicker fx:id="datePicker" />
+            <Label prefHeight="18.0" prefWidth="68.0" style="-fx-font-size: 14px; -fx-text-fill: #333333;" text="Date :" />
+            <DatePicker fx:id="datePicker" style="-fx-font-size: 14px; -fx-pref-width: 200px;" />
         </HBox>
 
+        <!-- TextField pour le montant -->
         <HBox spacing="5.0">
             <Label prefHeight="30.0" prefWidth="122.0" style="-fx-font-size: 14px; -fx-text-fill: #333333;" text="Montant :" textFill="WHITE" />
             <TextField fx:id="montantField" style="-fx-font-size: 14px; -fx-pref-width: 200px;" />
@@ -41,17 +46,22 @@
             <TextField fx:id="montantField" prefHeight="26.0" prefWidth="172.0" />
         </HBox>
 
+        <!-- ChoiceBox pour la banque -->
         <HBox spacing="5.0">
-            <Label prefHeight="18.0" prefWidth="69.0" styleClass="label" text="Banque: " />
-            <ChoiceBox fx:id="banqueChoiceBox" prefHeight="26.0" prefWidth="173.0" />
+            <Label prefHeight="18.0" prefWidth="69.0" style="-fx-font-size: 14px; -fx-text-fill: #333333;" text="Banque: " />
+            <ChoiceBox fx:id="banqueChoiceBox" style="-fx-font-size: 14px; -fx-pref-width: 200px;" />
         </HBox>
 
+        <!-- TextField pour la description -->
         <HBox spacing="5.0">
-            <Label prefHeight="18.0" prefWidth="69.0" styleClass="label" text="Description :" />
-            <TextField fx:id="descriptionField" prefHeight="26.0" prefWidth="171.0" />
+            <Label prefHeight="18.0" prefWidth="69.0" style="-fx-font-size: 14px; -fx-text-fill: #333333;" text="Description :" />
+            <TextField fx:id="descriptionField" style="-fx-font-size: 14px; -fx-pref-width: 200px;" />
         </HBox>
 
-        <Button onAction="#HandleAjouterDepense" styleClass="button" text="Ajouter Dépense" />
+        <!-- Bouton "Ajouter Dépense" -->
+        <Button onAction="#HandleAjouterDepense" style="-fx-font-size: 14px; -fx-pref-width: 150px; -fx-background-color: #4CAF50; -fx-text-fill: white;" text="Ajouter Dépense" />
+
+        <!-- Padding pour l'espacement -->
         <padding>
             <Insets bottom="15.0" left="40.0" right="15.0" top="15.0" />
         </padding>

@@ -10,5 +10,27 @@
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="org.groupe13.suivicash.MotDePasseController"
             prefHeight="400.0" prefWidth="600.0">
+    <!-- Contenu de l'AnchorPane -->
+    <VBox spacing="10" alignment="CENTER">
 
+
+        <!-- Formulaire pour Ajouter Mot de Passe -->
+        <VBox fx:id="ajoutForm" visible="true" alignment="CENTER" spacing="5">
+            <Label text="Ajouter Mot de Passe" />
+            <PasswordField fx:id="newPasswordInput" promptText="Nouveau Mot de Passe" />
+            <PasswordField fx:id="confirmPasswordInput" promptText="Confirmer le Mot de Passe" />
+
+            <Button text="Ajouter" onAction="#ajouterMotDePasse" />
+        </VBox>
+
+        <!-- Formulaire pour Changer Mot de Passe -->
+        <VBox fx:id="changerForm" visible="false" alignment="CENTER" spacing="5">
+            <Label text="Changer Mot de Passe" />
+            <PasswordField promptText="Ancien Mot de Passe"  />
+            <PasswordField promptText="Nouveau Mot de Passe" />
+            <PasswordField promptText="Confirmer le Nouveau Mot de Passe" />
+            <Button text="Supprimer" onAction="#SupprimerMotDePasse" />
+            <Button text="Changer" onAction="#changerMotDePasse" />
+        </VBox>
+    </VBox>
 </AnchorPane>
