@@ -13,7 +13,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="610.0" prefWidth="939.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.groupe13.suivicash.HomeController">
+<VBox prefHeight="610.0" prefWidth="939.0" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml" fx:controller="org.groupe13.suivicash.HomeController">
     <children>
         <!-- En-tête -->
         <AnchorPane prefHeight="92.0" prefWidth="900.0" style="-fx-background-color: #366337;">
@@ -46,6 +47,7 @@
                            </font></Button>
                                 <Button fx:id="RevenuButton" mnemonicParsing="false" onAction="#handleRevenuButtonClick" prefWidth="120.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 12; -fx-padding: 10px 10px;" text="Revenus" />
                                 <Button fx:id="BanqueButton" mnemonicParsing="false" onAction="#handleDashboardButtonClick" prefWidth="120.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 12px; -fx-padding: 10px 10px;" text="Banques" />
+                                <Button fx:id="SecuriteButton" mnemonicParsing="false" onAction="#handleSecuriteButtonClick" prefWidth="120.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 12px; -fx-padding: 10px 10px;" text="Securite" />
                             </children>
                             <padding>
                                 <Insets top="10.0" />
