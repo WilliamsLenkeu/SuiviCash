@@ -10,7 +10,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import org.groupe13.suivicash.modele.MotDePasse;
+import org.groupe13.suivicash.modele.*;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
@@ -37,6 +37,13 @@ public class HomeController {
         }
         // Chargement de la vue Depense par défaut
         loadView("vues/DepenseView.fxml");
+        effectuerRepetitionsRevenus();
+    }
+
+    // Méthode pour effectuer les répétitions de revenus
+    private void effectuerRepetitionsRevenus() {
+        Revenus revenus = new Revenus();
+        revenus.effectuerRepetitionRevenu();
     }
 
     @FXML
