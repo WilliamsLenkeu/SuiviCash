@@ -1,6 +1,8 @@
 package org.groupe13.suivicash;
 
+import com.sun.mail.imap.Rights;
 import javafx.collections.FXCollections;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import org.groupe13.suivicash.modele.*;
@@ -317,6 +319,9 @@ public class DepenseController {
             String displayText = category.getNomCategorie() + "     - Total Dépense : " + totalDepense;
             Button categoryButton = new Button(displayText);
             categoryButton.setStyle("-fx-background-color: #dddddd; -fx-text-fill: black; -fx-font-size: 14px");
+            categoryButton.setPrefWidth(400);
+            categoryButton.setPrefHeight(40);
+            categoryButton.setAlignment(Pos.BOTTOM_LEFT);
             categoryButton.setOnAction(event -> handleCategoryButtonClick(category.getNomCategorie()));
             CategorieListView.getItems().add(categoryButton);
             total+= category.getTotalDepense();
