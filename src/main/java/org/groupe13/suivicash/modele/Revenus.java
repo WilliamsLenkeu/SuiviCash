@@ -177,11 +177,19 @@ public class Revenus {
     public void deleteRevenus() {
         try {
             Connection connection = connectionFile.getConnection();
-            String sql = "DELETE FROM revenus WHERE IDRevenu = ?";
+            String sqlHistorique = "DELETE FROM historique_revenus WHERE IDRevenu = ?";
+            String sqlRevenus = "DELETE FROM revenus WHERE IDRevenu = ?";
 
-            try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                statement.setInt(1, this.IDRevenu);
-                int rowsAffected = statement.executeUpdate();
+            // Supprimer d'abord les entrées dans l'historique des revenus
+            try (PreparedStatement statementHistorique = connection.prepareStatement(sqlHistorique)) {
+                statementHistorique.setInt(1, this.IDRevenu);
+                statementHistorique.executeUpdate();
+            }
+
+            // Ensuite, supprimer le revenu lui-même
+            try (PreparedStatement statementRevenus = connection.prepareStatement(sqlRevenus)) {
+                statementRevenus.setInt(1, this.IDRevenu);
+                int rowsAffected = statementRevenus.executeUpdate();
 
                 if (rowsAffected > 0) {
                     System.out.println("Revenus supprimée avec succès de la base de données.");
