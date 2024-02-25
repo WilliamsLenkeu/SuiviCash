@@ -217,8 +217,8 @@ public class Revenus {
         alert.showAndWait();
     }
 
-    // Méthode pour effectuer la répétition du revenu en créditant le solde de la banque correspondante
-    public void effectuerRepetitionRevenu() {
+    // Méthode pour effectuer la répétition du revenu en incrémentant le solde de la banque correspondante
+    public void effectuerRepetitionRevenu() throws SQLException {
         // Récupérer la liste des revenus
         List<Revenus> revenusList = getRevenus();
 
@@ -226,8 +226,8 @@ public class Revenus {
         Calendar cal = Calendar.getInstance();
         Date currentDate = new Date(cal.getTimeInMillis());
 
-        // Initialiser un indicateur pour savoir si au moins une répétition a été effectuée
-        boolean repetitionEffectuee = false;
+        // Créer une instance de HistoriqueRevenus
+        HistoriqueRevenus historiqueRevenus = new HistoriqueRevenus();
 
         // Parcourir la liste des revenus
         for (Revenus revenus : revenusList) {
@@ -256,25 +256,20 @@ public class Revenus {
                     break;
             }
 
-            // Si la répétition est due, ajouter le revenu à nouveau
+            // Si la répétition est due, incrémenter le solde de la banque correspondante et enregistrer l'historique
             if (repetitionDue) {
+                int idBanque = getIdBanque(revenus.getNomBanque());
                 double montant = revenus.getMontant();
-                String description = revenus.getDescription();
-                String nomBanque = revenus.getNomBanque();
 
-                // Ajouter le revenu à nouveau en créditant le solde de la banque correspondante
-                ajouterRevenu(montant, currentDate, description, nomBanque, typeRepetition, periodeRepetition);
+                // Vérifier si la répétition pour cette date existe déjà dans l'historique
+                boolean repetitionExistante = historiqueRevenus.checkRepetitionExistante(revenus.getIDRevenu(), currentDate);
 
-                // Indiquer qu'au moins une répétition a été effectuée
-                repetitionEffectuee = true;
+                // Si aucune répétition n'existe, l'ajouter dans l'historique et incrémenter le solde de la banque correspondante
+                if (!repetitionExistante) {
+                    historiqueRevenus.ajouterHistoriqueRevenu(revenus.getIDRevenu(), currentDate);
+                    crediterSoldeBanque(idBanque, montant);
+                }
             }
-        }
-
-        // Afficher un message d'alerte en fonction de si une répétition a été effectuée ou non
-        if (repetitionEffectuee) {
-            afficherInformation("Répétitions effectuées", "Une ou plusieurs répétitions ont été effectuées.");
-        } else {
-            afficherInformation("Aucune répétition effectuée", "Aucune répétition n'a été effectuée.");
         }
     }
 
