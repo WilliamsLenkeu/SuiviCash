@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<VBox prefHeight="610.0" prefWidth="939.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.groupe13.suivicash.HomeController">
+<VBox prefHeight="610.0" prefWidth="939.0" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml" fx:controller="org.groupe13.suivicash.HomeController">
     <children>
         <!-- VBox MonDashboard -->
-        <VBox fx:id="MonDashboard" visible="false" managed="false">
+        <VBox fx:id="MonDashboard">
             <!-- En-tête -->
             <AnchorPane prefHeight="92.0" prefWidth="900.0" style="-fx-background-color: #366337;">
                 <padding>
@@ -87,16 +96,18 @@
         </VBox>
 
         <!-- AnchorPane MonInscription -->
-        <AnchorPane fx:id="MonInscription" maxHeight="-Infinity"
-                    maxWidth="-Infinity" prefHeight="610.0" prefWidth="939.0" visible="true" managed="true">
+        <AnchorPane fx:id="MonInscription" managed="false" maxHeight="-Infinity"
+                    maxWidth="-Infinity" prefHeight="610.0" prefWidth="939.0" visible="false">
         <VBox alignment="CENTER" prefHeight="610.0" prefWidth="939.0" spacing="10" style="-fx-background-color: #f0f0f0;">
                 <!-- Formulaire pour Entrer Mot de Passe -->
                 <VBox fx:id="passwordForm" alignment="CENTER" prefHeight="200.0" prefWidth="400.0" spacing="5" visible="true">
-                    <Label text="Entrez votre mot de passe" />
-                    <PasswordField fx:id="passwordField" promptText="Mot de Passe" />
+                    <Label prefHeight="34.0" prefWidth="250.0" text="Entrez votre mot de passe">
+                  <font>
+                     <Font size="21.0" />
+                  </font></Label>
+                    <PasswordField fx:id="passwordField" maxWidth="-Infinity" prefHeight="26.0" prefWidth="209.0" promptText="Mot de Passe" />
                     <!-- Ajoutez d'autres éléments au besoin -->
-                    <Button onAction="#validerMotDePasse" text="Valider" style="-fx-background-color: #4CAF50;
-                    -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px;" />
+                    <Button onAction="#validerMotDePasse" style="-fx-background-color: #4CAF50;                     -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px;" text="Valider" />
                     <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                     </padding>
