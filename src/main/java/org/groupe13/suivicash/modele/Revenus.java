@@ -177,28 +177,29 @@ public class Revenus {
     public void deleteRevenus() {
         try {
             Connection connection = connectionFile.getConnection();
-            String sqlHistorique = "DELETE FROM historique_revenus WHERE IDRevenu = ?";
+
+            // Désactiver temporairement la prise en charge des clés étrangères
+            PreparedStatement disableForeignKeyCheck = connection.prepareStatement("SET FOREIGN_KEY_CHECKS=0;");
+            disableForeignKeyCheck.executeUpdate();
+
             String sqlRevenus = "DELETE FROM revenus WHERE IDRevenu = ?";
 
-            // Supprimer d'abord les entrées dans l'historique des revenus
-            try (PreparedStatement statementHistorique = connection.prepareStatement(sqlHistorique)) {
-                statementHistorique.setInt(1, this.IDRevenu);
-                statementHistorique.executeUpdate();
-            }
-
-            // Ensuite, supprimer le revenu lui-même
             try (PreparedStatement statementRevenus = connection.prepareStatement(sqlRevenus)) {
                 statementRevenus.setInt(1, this.IDRevenu);
                 int rowsAffected = statementRevenus.executeUpdate();
 
                 if (rowsAffected > 0) {
-                    System.out.println("Revenus supprimée avec succès de la base de données.");
+                    System.out.println("Revenu supprimé avec succès de la base de données.");
                 } else {
-                    System.out.println("Échec de la suppression du revenus de la base de données.");
+                    System.out.println("Échec de la suppression du revenu de la base de données.");
                 }
             }
+
+            // Réactiver la prise en charge des clés étrangères
+            PreparedStatement enableForeignKeyCheck = connection.prepareStatement("SET FOREIGN_KEY_CHECKS=1;");
+            enableForeignKeyCheck.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("Erreur lors de la suppression du revenus de la base de données : " + e.getMessage());
+            System.out.println("Erreur lors de la suppression du revenu de la base de données : " + e.getMessage());
         }
     }
 
