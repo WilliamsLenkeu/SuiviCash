@@ -24,11 +24,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormatSymbols;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import static org.groupe13.suivicash.modele.connectionFile.*;
 
@@ -339,7 +341,7 @@ public class DepenseController {
             if(limites.get(0).getLimite()<total){
 
                 Month month = Month.of(numeroMois);
-                String nomMois = month.toString();
+                String nomMois = getNomMoisFrancais(numeroMois);
                 Avertissement.setText("Attention, vous avez dépassé votre limite de dépense pour "+nomMois+" "+LocalDate.now().getYear());
                 Avertissement.setStyle("-fx-text-fill: red;");
                 Avertissement.setVisible(true);
@@ -350,6 +352,12 @@ public class DepenseController {
 
     }
 
+    // Fonction pour obtenir le nom du mois en français
+    private String getNomMoisFrancais(int numeroMois) {
+        DateFormatSymbols dfs = new DateFormatSymbols(Locale.FRENCH);
+        String[] nomsMois = dfs.getMonths();
+        return nomsMois[numeroMois - 1];
+    }
 }
 
 
